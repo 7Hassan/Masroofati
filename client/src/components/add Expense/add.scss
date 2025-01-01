@@ -1,0 +1,65 @@
+.add-expensed {
+  $space: 20px;
+  $boxPadding: 20px;
+
+  .h5 {
+    font-weight: 700;
+  }
+
+
+  .month-budget {
+    margin-top: 30px;
+
+    .budget-box {
+      width: 48%;
+      background-color: red;
+      padding: $boxPadding;
+      border-radius: 15px;
+
+      .h3 {
+        font-weight: 600;
+      }
+
+      &.income {
+        background-color: var(--income-bg);
+      }
+
+      &.outcome {
+        background-color: var(--outcome-bg);
+      }
+
+      .text {
+        margin-bottom: 20px;
+        justify-content: unset;
+        gap: 0;
+      }
+    }
+  }
+
+  .week-day-budget {
+    margin-top: $space;
+    padding: $boxPadding;
+    background-color: white;
+    border-radius: 15px;
+
+    .name {
+      margin-bottom: 20px;
+    }
+
+    .text {
+      width: 40%;
+      justify-content: unset;
+    }
+  }
+
+  .btn-expensed {
+    margin: 40px 0 30px;
+    width: 100%;
+    justify-content: center;
+
+    a {
+      min-width: 220px;
+    }
+  }
+
+}

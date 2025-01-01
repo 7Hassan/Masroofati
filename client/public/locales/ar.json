@@ -1,0 +1,57 @@
+{
+  "header": {
+    "logo": {
+      "imgLink": "https://via.placeholder.com/800x400?text=Slide+1",
+      "alt": "logo"
+    }
+  },
+  "nav": [
+    {
+      "name": "اضافة",
+      "code": "add"
+    },
+    {
+      "name": "عرض",
+      "code": "view"
+    }
+  ],
+  "add": {
+    "head": {
+      "img": {
+        "link": "https://via.placeholder.com/800x400?text=Slide+1",
+        "alt": "logo",
+        "url": "/"
+      },
+
+      "dis": {
+        "head": "ك أسماء للصفحات باللغتين العربية والإنجليزي",
+        "dis": "يك أسماء للصفحات باللغتين العربية والإنجليزي"
+      }
+    },
+    "form": {
+      "amount": "الكمية",
+      "source": "السبب",
+      "types": [
+        {
+          "name": "صرف",
+          "code": "outcome"
+        },
+        {
+          "name": "دخل",
+          "code": "income"
+        }
+      ],
+      "categories": [
+        {
+          "name": "اساسي",
+          "code": "essential"
+        },
+        {
+          "name": "تفرفيهي",
+          "code": "entertainment"
+        }
+      ],
+      "button": "اضافة"
+    }
+  }
+}

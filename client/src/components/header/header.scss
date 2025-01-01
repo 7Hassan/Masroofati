@@ -1,0 +1,33 @@
+header {
+  padding: 10px 0;
+
+  .container {
+    $imgWidth: 50px;
+    $userImgWidth: $imgWidth - 15px;
+
+
+    .lang,
+    .user {
+      gap: 7px;
+    }
+
+    .lang {
+      height: $imgWidth;
+      width: $imgWidth;
+      padding: 0;
+      justify-content: center;
+    }
+
+    img {
+      width: $imgWidth;
+    }
+
+    .user {
+      img {
+        height: $userImgWidth;
+        width: $userImgWidth;
+        border-radius: 50%;
+      }
+    }
+  }
+}
