@@ -11,7 +11,7 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <button onClick={changeLanguage} className="lang row">
+    <button onClick={changeLanguage} className="lang row btn">
       <div className="h4">{arabic ? 'En' : 'Ar'}</div>
     </button>
   );
@@ -27,7 +27,6 @@ const User = () => {
           loading="lazy"
         />
       </div>
-      <div className="name">John Smith</div>
     </div>
   );
 };

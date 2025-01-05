@@ -1,0 +1,94 @@
+.form-container {
+  .form-card {
+    border-radius: 17px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: white;
+
+    label {
+      margin-bottom: 5px;
+      display: block;
+    }
+  }
+
+  .choose-bar {
+    background-color: white;
+    justify-content: center;
+    gap: 16px;
+    border-radius: 0;
+    margin: 0 au;
+
+    .item {
+      color: black;
+      border-radius: 30px;
+      max-height: 45px;
+      min-width: 40%;
+
+    }
+
+    .outcome {
+      border: 1px solid var(--outcome-color);
+
+      &.active-btn {
+        color: white;
+        background-color: var(--outcome-color);
+      }
+    }
+
+    .income {
+      border: 1px solid var(--income-color);
+
+      &.active-btn {
+        color: white;
+        background-color: var(--income-color);
+      }
+    }
+  }
+
+  .radio-group {
+    max-width: 200px;
+    margin: auto;
+
+    label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .h5 {
+        font-size: 17px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.source-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  gap: 15px;
+
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    border: 1px solid var(--blue);
+    font-size: large;
+    max-width: 100px;
+    position: relative;
+    cursor: pointer;
+
+    &.high-light {
+      background-color: var(--blue);
+      color: white;
+    }
+  }
+}
