@@ -38,7 +38,7 @@ const DayTrans = ({ data }) => {
       {type == 'income' && <IncomeIcon />}
       {type == 'outcome' && <OutcomeIcon />}
       <div className="amount text">{price} EG</div>
-      <div className="day text">{format(date, 'MM/dd/yyyy')}</div>
+      <div className="day text">{format(date, 'dd/MM/yyyy')}</div>
       <div className="reason text">{reason}</div>
     </div>
   );

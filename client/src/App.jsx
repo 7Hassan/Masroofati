@@ -6,6 +6,7 @@ import { url } from './utils/variables';
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
 import Add from './pages/add';
+import Signup from './pages/signup';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,6 +35,10 @@ function App() {
     {
       path: '/',
       element: <Home />,
+    },
+    {
+      path: '/signup',
+      element: <Signup/>,
     },
     // {
     //   path: '/login',
