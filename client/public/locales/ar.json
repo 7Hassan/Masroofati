@@ -1,8 +1,13 @@
 {
+  "currency": "ج",
+
   "header": {
     "logo": {
-      "imgLink": "https://via.placeholder.com/800x400?text=Slide+1",
-      "alt": "logo"
+      "img": {
+        "src": "https://via.placeholder.com/800x400?text=Slide+1",
+        "alt": "logo"
+      },
+      "text": "مصروفاتي"
     }
   },
   "nav": [
@@ -16,6 +21,67 @@
     }
   ],
   "add": {
+    "month": {
+      "income": "الدخل",
+      "outcome": "الصرف"
+    },
+    "week": {
+      "text": "الاسبوع",
+      "income": "الدخل",
+      "outcome": "الصرف"
+    },
+    "day": {
+      "text": "اليوم",
+      "income": "الدخل",
+      "outcome": "الصرف"
+    },
+    "btn": "اضافة مصروف"
+  },
+  "view": {
+    "chooser": [
+      {
+        "code": "day",
+        "name": "اليوم"
+      },
+      {
+        "code": "week",
+        "name": "الاسبوع"
+      },
+      {
+        "code": "month",
+        "name": "الشهر"
+      },
+      {
+        "code": "year",
+        "name": "السنة"
+      }
+    ],
+    "analytics": {
+      "text": {
+        "inOut": "الدخل - المصروف",
+        "in": "الدخل",
+        "out": "المصروف"
+      }
+    },
+    "trans": {
+      "text": "المعاملات",
+      "chooser": [
+        {
+          "code": "outcome",
+          "name": "الصرف"
+        },
+        {
+          "code": "income",
+          "name": "الدخل"
+        },
+        {
+          "code": "all",
+          "name": "الكل"
+        }
+      ]
+    }
+  },
+  "addForm": {
     "head": {
       "img": {
         "link": "https://via.placeholder.com/800x400?text=Slide+1",
@@ -29,7 +95,7 @@
       }
     },
     "form": {
-      "amount": "الكمية",
+      "value": "الكمية",
       "source": "السبب",
       "types": [
         {

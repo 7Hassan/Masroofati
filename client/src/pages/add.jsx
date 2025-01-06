@@ -9,7 +9,7 @@ const Head = () => {
 
   return (
     <div className="header">
-      <Link to={head.img.url}>
+      <Link to={head.img.src}>
         <div className="img">
           <img src={head.img.link} alt={head.img.alt} />
         </div>
@@ -19,7 +19,6 @@ const Head = () => {
     </div>
   );
 };
-
 
 const Add = () => (
   <div className="add">

@@ -172,6 +172,7 @@ img.icon-st {
   flex-direction: column;
   justify-content: center;
 
+
   .text {
     justify-content: center;
     gap: 20px;
@@ -302,7 +303,7 @@ img.icon-st {
       gap: 20px;
       margin-bottom: 15px;
 
-      .amount {
+      .value {
         font-weight: 700;
       }
 
@@ -310,5 +311,22 @@ img.icon-st {
         white-space: nowrap;
       }
     }
+  }
+}
+
+.bar-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .css-10d7jww-MuiChartsAxis-root-MuiChartsYAxis-root {
+    .MuiChartsAxis-tickLabel {
+      transform: translateX(-25px);
+    }
+  }
+
+  .MuiChartsAxis-tickLabel {
+    font-weight: 600 !important;
+
   }
 }

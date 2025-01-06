@@ -5,7 +5,7 @@ const AppError = require('../Errors/classError')
 const WebSocket = require('ws');
 const multer = require('multer')
 const sharp = require('sharp');
-const { format } = require("date-fns");
+const { format, getISOWeek } = require("date-fns");
 
 
 exports.cookieOptions = {
@@ -74,8 +74,8 @@ const monthMoney = (monthData) => {
   let monthOutcome = 0;
   monthData.weeks.forEach(week => {
     week.transactions.map(tran => {
-      if (tran.type === 'income') monthIncome += tran.amount
-      else monthOutcome += tran.amount
+      if (tran.type === 'income') monthIncome += tran.value
+      else monthOutcome += tran.value
     })
   })
 
@@ -87,8 +87,8 @@ const weekMoney = (weekData) => {
   let weekOutcome = 0;
 
   weekData.transactions.map(tran => {
-    if (tran.type === 'income') weekIncome += tran.amount
-    else weekOutcome += tran.amount
+    if (tran.type === 'income') weekIncome += tran.value
+    else weekOutcome += tran.value
   })
 
   return { weekIncome, weekOutcome }
@@ -99,27 +99,40 @@ const dayMoney = (dayData) => {
   let dayOutcome = 0;
 
   dayData.map(tran => {
-    if (tran.type === 'income') dayIncome += tran.amount
-    else dayOutcome += tran.amount
+    if (tran.type === 'income') dayIncome += tran.value
+    else dayOutcome += tran.value
   })
 
   return { dayIncome, dayOutcome }
 }
 
+exports.getDates = (date) => {
+  const year = format(date, "yyyy")
+  const month = format(date, "MMM")
+  const week = getISOWeek(date);
+  const day = format(date, "dd/MMM/yyyy")
+  return { day, week, month, year }
+}
+
 exports.calculateMoney = (years, date) => {
-  const year = format(new Date(), "yyyy");
-  const month = format(new Date(date), "MM");
-  const day = format(new Date(date), "dd/MM/yyyy");
-  const weekNumber = Math.ceil(date.getDate() / 7);
-  const initial = { dayIncome: 0, dayOutcome: 0, weekIncome: 0, weekOutcome: 0, monthIncome: 0, monthOutcome: 0 }
+  const { day, week, month, year } = helper.getDates(new Date(date));
+  const initial = {
+    dayIncome: 0, dayOutcome: 0,
+    weekIncome: 0, weekOutcome: 0,
+    monthIncome: 0, monthOutcome: 0,
+    yearIncome: 0, yearOutcome: 0,
+  }
 
   const yearData = years.find((y) => y.year === year);
-  if (!yearData) return initial;
+  if (yearData) {
+    initial.yearIncome += transaction.value;
+    initial.yearOutcome += transaction.value;
+  }
 
   const monthData = yearData.months.find((m) => m.month === month);
   if (!monthData) return initial;
 
-  const weekData = monthData.weeks.find((w) => w.weekNumber === weekNumber);
+  const weekData = monthData.weeks.find((w) => w.weekNumber === week);
   if (!weekData) return initial;
 
   const dayData = weekData.transactions.filter((tarns) => format(new Date(tarns.date), "dd/MM/yyyy") == day);

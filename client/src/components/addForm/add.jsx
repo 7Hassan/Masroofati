@@ -3,13 +3,13 @@ import './add.scss';
 import { Chooser } from '../../utils/components';
 
 const ExpenseForm = () => {
-  const [amount, setAmount] = useState('');
+  const [value, setvalue] = useState('');
   const [type, setType] = useState('outcome');
   const [date, setDate] = useState(new Date());
   const [source, setSource] = useState('');
   const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(false);
-  const isDisabledForm = !(amount && reason);
+  const isDisabledForm = !(value && label);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,8 +47,8 @@ const ExpenseForm = () => {
             className="input-field"
             type="number"
             placeholder="أدخل المبلغ"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            value={value}
+            onChange={(e) => setvalue(e.target.value)}
           />
         </div>
         <div className="form-card">

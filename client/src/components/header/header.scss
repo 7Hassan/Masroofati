@@ -2,8 +2,8 @@ header {
   padding: 10px 0;
 
   .container {
-    $imgWidth: 50px;
-    $userImgWidth: $imgWidth - 15px;
+    $imgWidth: 40px;
+    $logoImg: $imgWidth;
 
 
     .lang,
@@ -24,8 +24,8 @@ header {
 
     .user {
       img {
-        height: $userImgWidth;
-        width: $userImgWidth;
+        height: $logoImg;
+        width: $logoImg;
         border-radius: 50%;
       }
     }

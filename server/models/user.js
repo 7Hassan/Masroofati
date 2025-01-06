@@ -4,25 +4,59 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
+const colors = [
+  '#06008d',
+  '#180090',
+  '#2b0093',
+  '#3e0096',
+  '#510099',
+  '#5b099c',
+  '#482ea0',
+  '#3455a4',
+];
+
+const getRandomColor = () => {
+  return colors[Math.floor(Math.random() * colors.length)];
+};
+
 const TransactionSchema = new mongoose.Schema({
-  amount: { type: Number, required: true },
+  value: { type: Number, required: true },
   type: { type: String, enum: ["income", "outcome"], required: true },
   date: { type: Date, required: true },
-  reason: { type: String },
+  label: { type: String },
+  color: {
+    type: String,
+    default: getRandomColor, // تحديد لون عشوائي كافتراضي
+  },
 });
+
+const DaySchema = new mongoose.Schema({
+  day: { type: String, required: true },
+  totalIncome: { type: Number, default: 0 },
+  totalOutcome: { type: Number, default: 0 },
+  income: [TransactionSchema],
+  outcome: [TransactionSchema],
+});
+
 
 const WeekSchema = new mongoose.Schema({
   weekNumber: { type: Number, required: true },
-  transactions: [TransactionSchema],
+  totalIncome: { type: Number, default: 0 },
+  totalOutcome: { type: Number, default: 0 },
+  days: [DaySchema],
 });
 
 const MonthSchema = new mongoose.Schema({
   month: { type: String, required: true },
+  totalIncome: { type: Number, default: 0 },
+  totalOutcome: { type: Number, default: 0 },
   weeks: [WeekSchema],
 });
 
 const YearSchema = new mongoose.Schema({
   year: { type: String, required: true },
+  totalIncome: { type: Number, default: 0 },
+  totalOutcome: { type: Number, default: 0 },
   months: [MonthSchema],
 });
 
@@ -58,7 +92,7 @@ const userSchema = new mongoose.Schema(
     passwordToken: String,
     expPasswordToken: Date,
     years: [YearSchema],
-    reasons: [
+    labels: [
       { type: String, unique: true }
     ]
   },
