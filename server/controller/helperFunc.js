@@ -5,7 +5,7 @@ const AppError = require('../Errors/classError')
 const WebSocket = require('ws');
 const multer = require('multer')
 const sharp = require('sharp');
-const { format, getISOWeek } = require("date-fns");
+const { format, getISOWeek, startOfMonth, differenceInCalendarDays, getDay } = require("date-fns");
 
 
 exports.cookieOptions = {
@@ -69,53 +69,28 @@ exports.conflictTime = (start, end, lectures) => {
 }
 
 
-const monthMoney = (monthData) => {
-  let monthIncome = 0;
-  let monthOutcome = 0;
-  monthData.weeks.forEach(week => {
-    week.transactions.map(tran => {
-      if (tran.type === 'income') monthIncome += tran.value
-      else monthOutcome += tran.value
-    })
-  })
+const getWeekOfMonth = (date) => {
+  const weekStartsOn = 6
+  const start = startOfMonth(date);
+  const daysDifference = differenceInCalendarDays(date, start);
+  const firstDayOfMonth = getDay(start);
+  const offset = (firstDayOfMonth - weekStartsOn + 7) % 7; // تعديل الفرق ليبدأ من السبت
+  return Math.floor((daysDifference + offset) / 7) + 1;
+};
 
-  return { monthIncome, monthOutcome }
-}
 
-const weekMoney = (weekData) => {
-  let weekIncome = 0;
-  let weekOutcome = 0;
 
-  weekData.transactions.map(tran => {
-    if (tran.type === 'income') weekIncome += tran.value
-    else weekOutcome += tran.value
-  })
-
-  return { weekIncome, weekOutcome }
-}
-
-const dayMoney = (dayData) => {
-  let dayIncome = 0;
-  let dayOutcome = 0;
-
-  dayData.map(tran => {
-    if (tran.type === 'income') dayIncome += tran.value
-    else dayOutcome += tran.value
-  })
-
-  return { dayIncome, dayOutcome }
-}
 
 exports.getDates = (date) => {
   const year = format(date, "yyyy")
   const month = format(date, "MMM")
-  const week = getISOWeek(date);
+  const week = getWeekOfMonth(date);
   const day = format(date, "dd/MMM/yyyy")
   return { day, week, month, year }
 }
 
 exports.calculateMoney = (years, date) => {
-  const { day, week, month, year } = helper.getDates(new Date(date));
+  const { day, week, month, year } = exports.getDates(new Date(date));
   const initial = {
     dayIncome: 0, dayOutcome: 0,
     weekIncome: 0, weekOutcome: 0,
@@ -123,21 +98,29 @@ exports.calculateMoney = (years, date) => {
     yearIncome: 0, yearOutcome: 0,
   }
 
-  const yearData = years.find((y) => y.year === year);
-  if (yearData) {
-    initial.yearIncome += transaction.value;
-    initial.yearOutcome += transaction.value;
-  }
+  const yearData = years.find((y) => y.year == year);
+  if (!yearData) return initial;
 
-  const monthData = yearData.months.find((m) => m.month === month);
+  initial.yearIncome += yearData.totalIncome;
+  initial.yearOutcome += yearData.totalOutcome;
+
+  const monthData = yearData.months.find((m) => m.month == month);
   if (!monthData) return initial;
 
-  const weekData = monthData.weeks.find((w) => w.weekNumber === week);
+  initial.monthIncome += monthData.totalIncome;
+  initial.monthOutcome += monthData.totalOutcome;
+
+  const weekData = monthData.weeks.find((w) => w.weekNumber == week);
   if (!weekData) return initial;
 
-  const dayData = weekData.transactions.filter((tarns) => format(new Date(tarns.date), "dd/MM/yyyy") == day);
+  initial.weekIncome += weekData.totalIncome;
+  initial.weekOutcome += weekData.totalOutcome;
+
+  const dayData = weekData.days.find((d) => d.day == day);
   if (!dayData) return initial;
 
-  const data = { ...dayMoney(dayData), ...weekMoney(weekData), ...monthMoney(monthData) }
-  return data;
+  initial.dayIncome += dayData.totalIncome;
+  initial.dayOutcome += dayData.totalOutcome;
+
+  return initial;
 };

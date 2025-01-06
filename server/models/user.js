@@ -24,10 +24,7 @@ const TransactionSchema = new mongoose.Schema({
   type: { type: String, enum: ["income", "outcome"], required: true },
   date: { type: Date, required: true },
   label: { type: String },
-  color: {
-    type: String,
-    default: getRandomColor, // تحديد لون عشوائي كافتراضي
-  },
+  color: { type: String, default: getRandomColor }
 });
 
 const DaySchema = new mongoose.Schema({

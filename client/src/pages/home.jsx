@@ -8,8 +8,18 @@ import { Chooser } from '../utils/components';
 const Home = () => {
   const { t } = useTranslation();
   const nav = t('nav', { returnObjects: true });
-  const [activeSection, setActiveSection] = useState(nav[0].code);
+  const [sec, setSec] = useState(nav[1].code);
+  const [isAnimating, setIsAnimating] = useState(false);
 
+  const handleSectionChange = (newSection) => {
+    if (newSection !== sec) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setSec(newSection);
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
   const sections = {
     add: <AddExpense />,
     view: <ViewExpense />,
@@ -19,12 +29,12 @@ const Home = () => {
     <div className="home">
       <Header />
       <main>
-        <Chooser
-          setItem={setActiveSection}
-          activeItem={activeSection}
-          list={nav}
-        />
-        <div className="content">{sections[activeSection]}</div>
+        <Chooser setItem={handleSectionChange} activeItem={sec} list={nav} />
+        <div
+          className={`active-section ${isAnimating ? 'fade-out' : 'fade-in'}`}
+        >
+          {sections[sec]}
+        </div>
       </main>
     </div>
   );

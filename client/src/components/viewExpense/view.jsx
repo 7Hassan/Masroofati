@@ -4,17 +4,10 @@ import { Chooser } from '../../utils/components';
 import { useState } from 'react';
 import TempView from './temp';
 
-const Month = () => {
-  return <div className="month">month</div>;
-};
-const Year = () => {
-  return <div className="month">year</div>;
-};
-
 const ViewExpense = () => {
   const { t } = useTranslation();
   const chooser = t('view.chooser', { returnObjects: true });
-  const [sec, setSec] = useState('day');
+  const [sec, setSec] = useState(chooser[1].code);
   const [isAnimating, setIsAnimating] = useState(false);
   const data = {
     totalIncome: 100,
@@ -58,10 +51,10 @@ const ViewExpense = () => {
   };
 
   const sections = {
-    day: <TempView data={data} type="pie" />,
-    week: <TempView data={data} type="line" />,
-    month: <TempView data={data} type="line" />,
-    year: <TempView data={data} type="line" />,
+    day: <TempView data={data} type="day" />,
+    week: <TempView data={data} type="week" />,
+    month: <TempView data={data} type="month" />,
+    year: <TempView data={data} type="year" />,
   };
   const handleSectionChange = (newSection) => {
     if (newSection !== sec) {
