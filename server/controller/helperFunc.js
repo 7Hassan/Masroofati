@@ -1,11 +1,8 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
-const AppError = require('../Errors/classError');
 const WebSocket = require('ws');
-const multer = require('multer');
-const sharp = require('sharp');
-const { format, getISOWeek, startOfMonth, differenceInCalendarDays, getDay, getDaysInMonth } = require("date-fns");
+const { format, startOfMonth, differenceInCalendarDays, getDay, getDaysInMonth } = require("date-fns");
 const { daysData } = require('./variables');
 
 exports.cookieOptions = {
@@ -47,29 +44,6 @@ exports.pageObject = (title, req) => ({
   toast: req.flash('toast'),
 });
 
-const multerStorage = multer.memoryStorage();
-const multerFilter = (req, file, cb) => {
-  file.mimetype.startsWith('image')
-    ? cb(null, true)
-    : cb(new AppError('Please upload only images', 400), false);
-};
-
-exports.upload = multer({ storage: multerStorage, fileFilter: multerFilter });
-
-exports.sharpImg = (req) =>
-  sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat('jpeg')
-    .jpeg({ quality: 90 })
-    .toFile(`public/imgs/users/${req.file.filename}`);
-
-exports.conflictTime = (start, end, lectures) =>
-  lectures.some(
-    (lecture) =>
-      (start >= lecture.start && start < lecture.end) ||
-      (end > lecture.start && end <= lecture.end) ||
-      (start <= lecture.start && end >= lecture.end)
-  );
 
 const getWeekOfMonth = (date) => {
   const weekStartsOn = 6;
@@ -89,6 +63,23 @@ exports.getDates = (date) => ({
   numWeekInMon: Math.ceil(getDaysInMonth(new Date(date)) / 7)
 });
 
+function objCreator(weekNumberInMon) {
+  const createPeriodObject = (length) => ({
+    totalIncome: 0,
+    totalOutcome: 0,
+    incomeValues: Array(length).fill(0),
+    outcomeValues: Array(length).fill(0),
+    income: [],
+    outcome: [],
+  });
+
+  return {
+    day: { totalIncome: 0, totalOutcome: 0, income: [], outcome: [] },
+    week: createPeriodObject(7),
+    month: createPeriodObject(weekNumberInMon),
+    year: createPeriodObject(12),
+  };
+}
 exports.calculateMoney = (years, date) => {
   const { day, week, month, year } = exports.getDates(date);
 
@@ -134,23 +125,6 @@ exports.calculateMoney = (years, date) => {
   return initial;
 };
 
-function objCreator(weekNumberInMon) {
-  const createPeriodObject = (length) => ({
-    totalIncome: 0,
-    totalOutcome: 0,
-    incomeValues: Array(length).fill(0),
-    outcomeValues: Array(length).fill(0),
-    income: [],
-    outcome: [],
-  });
-
-  return {
-    day: { totalIncome: 0, totalOutcome: 0, income: [], outcome: [] },
-    week: createPeriodObject(7),
-    month: createPeriodObject(weekNumberInMon),
-    year: createPeriodObject(12),
-  };
-}
 
 
 exports.getTransactions = (years, date) => {

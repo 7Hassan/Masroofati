@@ -1,10 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import Home from './pages/home';
 import Add from './pages/add';
 import Login from './pages/login';
 import Signup from './pages/signup';
-import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
 
 function App() {
@@ -32,7 +30,6 @@ function App() {
       <div className="container-app">
         <RouterProvider router={router} />
       </div>
-      <ToastContainer />
     </div>
   );
 }
