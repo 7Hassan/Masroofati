@@ -1,19 +1,7 @@
-import { LoadingColor, loading, loadingRed } from '../assets/images';
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import TextField from '@mui/material/TextField';
 import classNames from 'classnames';
-
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
-
 import { useState } from 'react';
-
 import { IncomeIcon, OutcomeIcon } from '../components/eles';
-
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { BarChart } from '@mui/x-charts';
@@ -23,12 +11,6 @@ export const Loading = ({ type }) => {
     <>
       {type === 'white' && (
         <img src="/icons/loading.png" alt="loading" className="spine" />
-      )}
-      {type === 'color' && (
-        <img src={LoadingColor} alt="loading" className="spine" />
-      )}
-      {type === 'red' && (
-        <img src={loadingRed} alt="loading" className="spine" />
       )}
       {type === 'page' && (
         <>

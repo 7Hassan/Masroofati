@@ -1,18 +1,26 @@
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import './header.scss';
+
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
-  const arabic = i18n.language == 'ar';
+
+  useEffect(() => {
+    const lng = i18n.language;
+    const direction = lng === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('dir', direction);
+    document.documentElement.setAttribute('lang', lng);
+  }, [i18n.language]);
 
   const changeLanguage = () => {
-    const lng = arabic ? 'en' : 'ar';
+    const lng = i18n.language === 'ar' ? 'en' : 'ar';
     i18n.changeLanguage(lng);
   };
 
   return (
     <button onClick={changeLanguage} className="lang row btn">
-      <div className="h5">{arabic ? 'En' : 'Ar'}</div>
+      <div className="h5">{i18n.language === 'ar' ? 'En' : 'Ar'}</div>
     </button>
   );
 };

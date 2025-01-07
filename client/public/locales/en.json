@@ -1,5 +1,187 @@
 {
+  "currency": "EG",
+  "pageErr": "Oops, couldn’t fetch the data. Try again later!",
   "header": {
+    "logo": {
+      "img": {
+        "src": "/icons/logo.png",
+        "alt": "logo"
+      },
+      "textLogo": {
+        "src": "/icons/text-logo-ar.png",
+        "alt": "logo"
+      }
+    }
+  },
+  "nav": [
+    {
+      "name": "Add New",
+      "code": "add"
+    },
+    {
+      "name": "View Details",
+      "code": "view"
+    }
+  ],
+  "add": {
+    "month": {
+      "income": "Income",
+      "outcome": "Expenses"
+    },
+    "week": {
+      "text": "Week",
+      "income": "Income",
+      "outcome": "Expenses"
+    },
+    "day": {
+      "text": "Day",
+      "income": "Income",
+      "outcome": "Expenses"
+    },
+    "btn": "Add New Expense!"
+  },
+  "view": {
+    "chooser": [
+      {
+        "code": "day",
+        "name": "Day"
+      },
+      {
+        "code": "week",
+        "name": "Week"
+      },
+      {
+        "code": "month",
+        "name": "Month"
+      },
+      {
+        "code": "year",
+        "name": "Year"
+      }
+    ],
+    "analytics": {
+      "text": {
+        "inOut": "Income - Expenses",
+        "in": "Income",
+        "out": "Expenses"
+      }
+    },
+    "trans": {
+      "text": "Transactions",
+      "chooser": [
+        {
+          "code": "outcome",
+          "name": "Expenses"
+        },
+        {
+          "code": "income",
+          "name": "Income"
+        },
+        {
+          "code": "all",
+          "name": "All"
+        }
+      ]
+    }
+  },
+  "addForm": {
+    "head": {
+      "img": {
+        "src": "/icons/logo.png",
+        "alt": "logo",
+        "url": "/"
+      },
 
+      "dis": {
+        "head": "Quick & Easy Additions!",
+        "dis": "Everything you need to manage your finances is right here."
+      }
+    },
+    "form": {
+      "success": "All set! Successfully added.",
+      "valueIn": {
+        "label": "Amount",
+        "pl": "Enter the amount here",
+        "err": "Value must be a positive number greater than zero."
+      },
+      "sourceIn": {
+        "label": "Source/Destination",
+        "pl": "e.g., Salary or Rent",
+        "err": "You must enter a label."
+      },
+      "day": "Day",
+      "types": [
+        {
+          "name": "Expense",
+          "code": "outcome"
+        },
+        {
+          "name": "Income",
+          "code": "income"
+        }
+      ],
+      "btn": "Add Details"
+    }
+  },
+  "signup": {
+    "head": {
+      "img": {
+        "src": "/icons/logo.png",
+        "alt": "logo",
+        "url": "/"
+      },
+
+      "dis": {
+        "head": "Join Us Now!",
+        "dis": "A small step can make a big change in your financial life!"
+      }
+    },
+    "form": {
+      "firstName": {
+        "label": "First Name",
+        "pl": "Enter your first name"
+      },
+      "lastName": {
+        "label": "Last Name",
+        "pl": "Enter your last name"
+      },
+      "phoneNumber": {
+        "label": "Phone Number",
+        "pl": "e.g., 01027045254",
+        "err": "Phone number must contain only digits."
+      },
+      "password": {
+        "label": "Password",
+        "pl": "Choose a strong password",
+        "err": "Password must be longer than 8 characters."
+      },
+      "btn": "Sign Up Now!"
+    }
+  },
+  "login": {
+    "head": {
+      "img": {
+        "src": "/icons/logo.png",
+        "alt": "logo",
+        "url": "/"
+      },
+
+      "dis": {
+        "head": "Welcome Back!",
+        "dis": "Let’s sign in quickly and get back to it."
+      }
+    },
+    "form": {
+      "phoneNumber": {
+        "label": "Phone Number",
+        "pl": "Enter your phone number",
+        "err": "Phone number must contain only digits."
+      },
+      "password": {
+        "label": "Password",
+        "pl": "Enter your password"
+      },
+      "btn": "Log In!"
+    }
   }
 }

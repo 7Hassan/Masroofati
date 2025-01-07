@@ -12,20 +12,24 @@ const MonthBudget = ({ income, outcome }) => {
     <div className="month-budget row">
       <div className="outcome  budget-box">
         <div className="text row">
-          <img src="/icons/up.png" alt="icon" className="icon-st" />
           <div className="h5">{month.outcome}</div>
         </div>
-        <div className="money h3">
-          {outcome} {currency}
+        <div className="text row">
+          <OutcomeIcon />
+          <div className="h3">
+            {outcome} {currency}
+          </div>
         </div>
       </div>
       <div className="income budget-box">
         <div className="text row">
-          <img src="/icons/down.png" alt="icon" className="icon-st" />
           <div className="h5">{month.income}</div>
         </div>
-        <div className="money h3">
-          {income} {currency}
+        <div className="text row">
+          <IncomeIcon />
+          <div className="h3">
+            {income} {currency}
+          </div>
         </div>
       </div>
     </div>

@@ -68,7 +68,10 @@ header {
           $textLogo: $logoImg+60px;
           width: $textLogo;
           border-radius: unset;
-          margin-top: 2px;
+          margin-top: 5px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
         }
       }
     }

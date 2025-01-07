@@ -2,10 +2,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { SlideLine, SlidePie, Transports } from '../../utils/components';
 import { Pagination } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
-import 'swiper/css/pagination';
-import 'swiper/css';
 import { addDays, format, getDaysInMonth, startOfWeek } from 'date-fns';
 import { daysData, monthsData, weeksData } from '../../utils/variables';
+import 'swiper/css/pagination';
+import 'swiper/css';
 
 const SlideLineTemp = ({ incomeValues, outcomeValues, text, xAxis }) => {
   const income = incomeValues;

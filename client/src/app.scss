@@ -45,10 +45,10 @@
   margin-top: 20px;
 
   &.add-home {
-    .item {
-
-      &.active-btn {
-        background-color: var(--main-color);
+    .active-btn {
+      &::after {
+        background-color: var(--main-color) !important;
+        color: var(--main-color) !important;
       }
     }
   }
@@ -60,11 +60,6 @@
     justify-content: center;
     height: 100%;
     font-weight: 600;
-
-    &.active-btn {
-      color: white;
-    }
-
   }
 }
 

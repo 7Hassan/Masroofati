@@ -31,6 +31,7 @@ const Auth = () => {
   );
 };
 
+
 const AnimatedSec = ({ data }) => {
   const { t } = useTranslation();
   const nav = t('nav', { returnObjects: true });
@@ -63,7 +64,7 @@ const AnimatedSec = ({ data }) => {
         setItem={handleSectionChange}
         activeItem={sec}
         list={nav}
-        classes="add-home"
+        classes="add-home slide-parent"
       />
       <div className={`active-section ${isAnimating ? 'fade-out' : 'fade-in'}`}>
         {isGuest && <Auth />}
@@ -134,3 +135,4 @@ const Home = () => {
 };
 
 export default Home;
+
