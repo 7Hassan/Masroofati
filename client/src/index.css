@@ -51,6 +51,7 @@
 
 
   --blue: #056fec;
+  --main-color: #59b47f;
   --bg-color: #FAFAFA;
   --br-bg: #E8E9EC;
   --in-text-color: #A8A9A8;
@@ -156,3 +157,4 @@ a {
   display: inline-block;
 
 }
+

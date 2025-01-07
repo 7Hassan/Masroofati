@@ -5,15 +5,33 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Tajawal:wght@400;600&display=swap"
-    rel="stylesheet">
   <title>Masroofati - مصروفاتي</title>
 </head>
 
 <body>
+  <div id="loading-screen">
+    <div class="loading home">
+      <div class="loading loading-img">
+        <img src="/icons/loading-logo.png" alt="loading" class="spine loading-page-img" />
+      </div>
+
+      <div class="loading">
+        <img src="/icons/logo.png" alt="image" class="loading-page-img" />
+      </div>
+    </div>
+  </div>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+  <script>
+    window.addEventListener("load", () => {
+      const loadingScreen = document.getElementById("loading-screen");
+      if (loadingScreen) {
+        loadingScreen.classList.add("hidden");
+      }
+    });
+  </script>
 </body>
 
 </html>
