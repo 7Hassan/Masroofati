@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: 'https://masroofati.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 };
