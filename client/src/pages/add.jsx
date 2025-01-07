@@ -23,7 +23,7 @@ const Head = () => {
 };
 
 const Add = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     fetch(`${url}/api/user`, {
@@ -44,7 +44,7 @@ const Add = () => {
   return (
     <div className="add">
       <Head />
-      <ExpenseForm labels={user.labels} />
+      <ExpenseForm labels={user.labels || []} />
     </div>
   );
 };

@@ -8,7 +8,7 @@ const helper = require('./helperFunc')
 
 exports.protectAuth = async (req, res, next) => {
   const { user } = await helper.testJwtToken(req, res, next)
-  if (!user) return next()
+  if (!user || user.isGuest) return next()
   next(new AppError('You are register', 401))
 }
 

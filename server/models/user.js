@@ -47,31 +47,40 @@ const YearSchema = new mongoose.Schema({
   months: [MonthSchema],
 });
 
-
 const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: [true, 'First name is required'],
+      required: function () {
+        return !this.isGuest;
+      },
       trim: true,
       minlength: [2, 'First name must be at least 2 characters'],
       maxlength: [50, 'First name must not exceed 50 characters'],
     },
     lastName: {
       type: String,
-      required: [true, 'Last name is required'],
+      required: function () {
+        return !this.isGuest;
+      },
       trim: true,
       minlength: [2, 'Last name must be at least 2 characters'],
       maxlength: [50, 'Last name must not exceed 50 characters'],
     },
     phoneNumber: {
       type: String,
-      required: [true, 'Phone number is required'],
-      unique: true,
+      required: function () {
+        return !this.isGuest;
+      },
+      unique: function () {
+        return !this.isGuest;
+      },
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: function () {
+        return !this.isGuest;
+      },
       minlength: [8, 'Password must be at least 8 characters'],
       maxlength: [128, 'Password must not exceed 128 characters'],
       select: false,
@@ -84,9 +93,14 @@ const userSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    isGuest: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
+
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next()
   this.password = await bcrypt.hash(this.password, 10)
