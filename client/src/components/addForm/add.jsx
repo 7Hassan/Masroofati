@@ -1,96 +1,134 @@
 import React, { useState } from 'react';
 import './add.scss';
-import { Chooser } from '../../utils/components';
+import { Chooser, ActionButton } from '../../utils/components';
+import { url } from '../../utils/variables';
+import { useTranslation } from 'react-i18next';
+import { message } from 'antd';
 
-const ExpenseForm = () => {
-  const [value, setvalue] = useState('');
-  const [type, setType] = useState('outcome');
-  const [date, setDate] = useState(new Date());
-  const [source, setSource] = useState('');
-  const [sources, setSources] = useState([]);
+const ExpenseForm = ({ labels }) => {
+  const { t } = useTranslation();
+  const formTr = t('addForm.form', { returnObjects: true });
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const [formData, setFormData] = useState({
+    value: '',
+    type: 'outcome',
+    date: new Date().toISOString().split('T')[0], // default to today
+    label: '',
+  });
+
   const [loading, setLoading] = useState(false);
-  const isDisabledForm = !(value && label);
+  const isFormValid = formData.value > 0 && formData.label.trim().length > 0;
+
+  const handleInputChange = (field, value) => {
+    if (field === 'value' && value < 0) {
+      messageApi.error(formTr.valueIn.err);
+      return;
+    }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isDisabledForm) return;
-    setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      navigate('/success');
-    }, 1000);
+    if (!isFormValid) {
+      if (formData.value <= 0) {
+        messageApi.error(formTr.valueIn.err);
+      }
+      if (!formData.label.trim()) {
+        messageApi.error(formTr.labelIn.err);
+      }
+      return;
+    }
+    setLoading(true);
+    fetch(`${url}/api/add`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        if (!data.success)
+          throw new Error(data.msg || 'Signup failed. Please try again');
+        messageApi.success(formTr.success);
+      })
+      .catch((error) => {
+        setLoading(false);
+        messageApi.error({ content: error.message, duration: 5 });
+      });
   };
 
   return (
     <div className="form-container">
-      <form action="POST" onSubmit={handleSubmit}>
+      {contextHolder}
+      <form onSubmit={handleSubmit}>
         <div className="form-card">
           <Chooser
-            setItem={setType}
-            activeItem={type}
-            list={[
-              {
-                name: 'صرف',
-                code: 'outcome',
-              },
-              {
-                name: 'دخل',
-                code: 'income',
-              },
-            ]}
+            setItem={(type) => handleInputChange('type', type)}
+            activeItem={formData.type}
+            list={formTr.types}
           />
         </div>
+
+        {/* Value Input */}
         <div className="form-card">
-          <label className="h5">المبلغ:</label>
+          <label className="h5">{formTr.valueIn.label}</label>
           <input
             className="input-field"
             type="number"
-            placeholder="أدخل المبلغ"
-            value={value}
-            onChange={(e) => setvalue(e.target.value)}
+            placeholder={formTr.valueIn.pl}
+            value={formData.value}
+            onChange={(e) =>
+              handleInputChange('value', parseFloat(e.target.value) || '')
+            }
           />
         </div>
+
+        {/* Date Input */}
         <div className="form-card">
-          <label className="h5">اليوم:</label>
+          <label className="h5">{formTr.day}</label>
           <input
             type="date"
             className="input-field"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            value={formData.date}
+            onChange={(e) => handleInputChange('date', e.target.value)}
           />
         </div>
+
+        {/* Label Input */}
         <div className="form-card">
-          <label className="h5">المصدر/الوجهة:</label>
+          <label className="h5">{formTr.sourceIn.label}</label>
           <input
             type="text"
             className="input-field"
-            placeholder="المصدر/الوجهة"
-            value={source}
-            onChange={(e) => setSource(e.target.value)}
+            placeholder={formTr.sourceIn.pl}
+            value={formData.label}
+            onChange={(e) => handleInputChange('label', e.target.value)}
           />
           <ul className="source-list">
-            {sources.map((src, index) => (
+            {labels.map((src, index) => (
               <li
                 key={index}
-                className={source == src && 'high-light'}
-                onClick={() => setSource(src)}
+                className={formData.label === src ? 'high-light' : ''}
+                onClick={() => handleInputChange('label', src)}
               >
                 <span>{src}</span>
               </li>
             ))}
           </ul>
         </div>
+
+        {/* Submit Button */}
         <div className="action row input">
-          <button
-            type="submit"
-            disabled={isDisabledForm}
-            className={`action-button stretch btn bg ${
-              isDisabledForm && 'disabled'
-            }`}
-          >
-            <h5>{loading ? 'Loading...' : 'Add'}</h5>
-          </button>
+          <ActionButton
+            loading={loading}
+            disabled={!isFormValid}
+            text={formTr.btn}
+          />
         </div>
       </form>
     </div>

@@ -4,12 +4,12 @@ import { Pagination } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
 import 'swiper/css/pagination';
 import 'swiper/css';
-import { addDays, format, startOfWeek } from 'date-fns';
+import { addDays, format, getDaysInMonth, startOfWeek } from 'date-fns';
+import { daysData, monthsData, weeksData } from '../../utils/variables';
 
-const SlideLineWeek = ({ text }) => {
-  const xAxis = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-  const income = [200, 300, 150, 400, 100, 50, 0];
-  const outcome = [100, 200, 50, 300, 80, 60, 20];
+const SlideLineTemp = ({ incomeValues, outcomeValues, text, xAxis }) => {
+  const income = incomeValues;
+  const outcome = outcomeValues;
 
   return <SlideLine data={{ income, outcome, xAxis }} text={text} />;
 };
@@ -39,14 +39,27 @@ const SlidePieDay = ({ data }) => {
 const Swipe = ({ data, type }) => {
   const { t } = useTranslation();
   const analytics = t('view.analytics.text', { returnObjects: true });
+  const daysInMonth = Math.ceil(getDaysInMonth(new Date()) / 7);
   const { totalIncome, totalOutcome, income, outcome } = data;
-
+  const xAxis =
+    type == 'week'
+      ? daysData
+      : type == 'month'
+      ? weeksData.slice(0, daysInMonth)
+      : monthsData;
   return (
     <Swiper pagination={true} modules={[Pagination]} className="my-swiper">
       <SwiperSlide>
         {type == 'day' && <SlidePieDay data={{ totalIncome, totalOutcome }} />}
-        {type == 'week' && <SlideLineWeek text={analytics.inOut} />}
-        {type == 'month' && <SlideLineMonth text={analytics.inOut} />}
+        {type != 'day' && (
+          <SlideLineTemp
+            incomeValues={data.incomeValues}
+            outcomeValues={data.outcomeValues}
+            xAxis={xAxis}
+            text={analytics.inOut}
+          />
+        )}
+        {/* {type == 'month' && <SlideLineMonth text={analytics.inOut} />} */}
       </SwiperSlide>
       <SwiperSlide>
         {<SlidePie data={outcome} text={analytics.out} />}

@@ -243,3 +243,16 @@ export const SlideLine = ({ data, text }) => {
     </div>
   );
 };
+
+export const ActionButton = ({ loading, text, disabled }) => {
+  return (
+    <button
+      type="submit"
+      disabled={disabled}
+      className={`action-button stretch btn bg ${disabled && 'disabled'}`}
+    >
+      {!loading && <h5>{text}</h5>}
+      {loading && <Loading type="white" />}
+    </button>
+  );
+};

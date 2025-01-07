@@ -1,19 +1,5 @@
 {
   "header": {
-    "logo": {
-      "alt": "Home",
-      "link": "/",
-      "image": "https://cdn.prod.website-files.com/655a78032f46f2e55da300d7/655a7c231e772cae143dec27_iSchool%20Logo-colors.webp"
-    },
-    "navbar": [
-      { "title": "Students", "link": "#home" },
-      { "title": "About Us", "link": "#about" },
-      { "title": "Courses", "link": "#courses" },
-      { "title": "Why Schoola", "link": "#why-schoola" }
-    ],
-    "navLink": {
-      "title": "Book a Free Class",
-      "link": "#signup"
-    }
+
   }
 }

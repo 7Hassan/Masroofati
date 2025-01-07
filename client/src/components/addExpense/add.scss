@@ -2,13 +2,23 @@
   $space: 20px;
   $boxPadding: 20px;
 
+  .h3,
   .h5 {
-    font-weight: 700;
+    font-weight: 600;
+  }
+
+  .h5 {
+    letter-spacing: 1px;
+  }
+
+  .h3 {
+    letter-spacing: 2px;
   }
 
 
   .month-budget {
     margin-top: 30px;
+    letter-spacing: 2px;
 
     .budget-box {
       width: 48%;
@@ -41,6 +51,7 @@
     padding: $boxPadding;
     background-color: white;
     border-radius: 15px;
+    font-weight: 600;
 
     .name {
       margin-bottom: 20px;

@@ -7,8 +7,8 @@ const helper = require('./helperFunc')
 
 
 exports.protectAuth = async (req, res, next) => {
-  const { user, time } = await helper.testJwtToken(req, res, next)
-  if (!user || user.isChangedPass(time)) return next()
+  const { user } = await helper.testJwtToken(req, res, next)
+  if (!user) return next()
   next(new AppError('You are register', 401))
 }
 
@@ -16,7 +16,7 @@ exports.userTemp = async (req, res, next) => {
   const user = await User.findOne({ email: "hassanhossam.dev@gmail.com" });
   const { firstName, lastName, img } = user;
   const jwtToken = helper.createJwtToken(user._id)
-  res.cookie('jwt', jwtToken, helper.cookieOptions).status(201).json({ success: true, data: { firstName, lastName, img } });
+  res.cookie('jwt', jwtToken, helper.cookieOptions).status(201).json({ success: true });
 }
 
 
@@ -30,8 +30,7 @@ exports.signUp = catchError(async (req, res, next) => {
   }
   const newUser = await User.create(data)
   const jwtToken = helper.createJwtToken(newUser._id)
-  const { firstName, lastName } = newUser;
-  res.cookie('jwt', jwtToken, helper.cookieOptions).status(200).json({ success: true, data: { firstName, lastName } })
+  res.cookie('jwt', jwtToken, helper.cookieOptions).status(200).json({ success: true })
 })
 
 exports.login = catchError(async (req, res, next) => {

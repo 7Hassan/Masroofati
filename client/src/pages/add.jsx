@@ -2,16 +2,18 @@ import { useTranslation } from 'react-i18next';
 import './add.scss';
 import { Link } from 'react-router-dom'; // Ensure correct import
 import ExpenseForm from '../components/addForm/add';
+import { useEffect, useState } from 'react';
+import { url } from '../utils/variables';
 
 const Head = () => {
   const { t } = useTranslation();
-  const head = t('add.head', { returnObjects: true });
+  const head = t('signup.head', { returnObjects: true });
 
   return (
     <div className="header">
-      <Link to={head.img.src}>
+      <Link to={head.img.url}>
         <div className="img">
-          <img src={head.img.link} alt={head.img.alt} />
+          <img src={head.img.src} alt={head.img.alt} />
         </div>
       </Link>
       <h4 className="welcome">{head.dis.head}</h4>
@@ -20,11 +22,31 @@ const Head = () => {
   );
 };
 
-const Add = () => (
-  <div className="add">
-    <Head />
-    <ExpenseForm />
-  </div>
-);
+const Add = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch(`${url}/api/user`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(async (res) => res.json())
+      .then((res) => {
+        if (res.success) setUser(res.data);
+        else throw new Error(res.data.msg);
+      })
+      .catch(() => 0);
+  }, []);
+
+  return (
+    <div className="add">
+      <Head />
+      <ExpenseForm labels={user.labels} />
+    </div>
+  );
+};
 
 export default Add;

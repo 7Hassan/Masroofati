@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom'; // Ensure correct import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import './add.scss';
+import './signup.scss'; // Rename the CSS file if necessary
+import './login.scss'; // Rename the CSS file if necessary
 import { ActionButton } from '../utils/components';
 import { url } from '../utils/variables';
-import './signup.scss';
-import './add.scss';
 import { message } from 'antd';
+
 const Head = () => {
   const { t } = useTranslation();
-  const head = t('signup.head', { returnObjects: true });
+  const head = t('login.head', { returnObjects: true });
 
   return (
     <div className="header">
@@ -25,51 +27,22 @@ const Head = () => {
   );
 };
 
-const Signup = () => {
+const Login = () => {
   const { t } = useTranslation();
   const [messageApi, contextHolder] = message.useMessage();
-  const navigate = useNavigate(); // Hook for navigation
-  const formTr = t('signup.form', { returnObjects: true });
-  const [loading, setLoading] = useState(false);
+  const formTr = t('login.form', { returnObjects: true });
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
     phoneNumber: '',
     password: '',
     showPassword: false,
   });
+  const [loading, setLoading] = useState(false);
 
-  const [errors, setErrors] = useState({
-    phoneNumber: '',
-    password: '',
-  });
-
-  const isFormValid =
-    formData.firstName &&
-    formData.lastName &&
-    formData.phoneNumber &&
-    formData.password &&
-    !errors.phoneNumber &&
-    !errors.password;
+  const isFormValid = formData.phoneNumber && formData.password;
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-
-    if (field === 'phoneNumber') {
-      const isNumeric = /^\d+$/.test(value);
-      setErrors((prev) => ({
-        ...prev,
-        phoneNumber: !isNumeric && value ? formTr.phoneNumber.err : '',
-      }));
-    }
-
-    if (field === 'password') {
-      setErrors((prev) => ({
-        ...prev,
-        password: value.length < 8 ? formTr.password.err : '',
-      }));
-    }
   };
 
   const togglePasswordVisibility = () => {
@@ -82,7 +55,7 @@ const Signup = () => {
     console.log(formData);
     setLoading(true);
 
-    fetch(`${url}/auth/signup`, {
+    fetch(`${url}/auth/login`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -92,12 +65,11 @@ const Signup = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('🚀 ~ data:', data);
         setLoading(false);
         if (!data.success)
           throw new Error(data.msg || 'Signup failed. Please try again');
         messageApi.success('Welcome to Masroofati');
-        navigate('/');
+        Navigate('/');
       })
       .catch((error) => {
         setLoading(false);
@@ -106,36 +78,11 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup add">
+    <div className="login signup add">
       {contextHolder}
       <Head />
       <div className="form-container signupForm">
         <form onSubmit={handleSubmit}>
-          {/* First Name Input */}
-          <div className="form-card">
-            <label className="h5">{formTr.firstName.label}</label>
-            <input
-              className="input-field"
-              type="text"
-              placeholder={formTr.firstName.pl}
-              value={formData.firstName}
-              onChange={(e) => handleInputChange('firstName', e.target.value)}
-            />
-          </div>
-
-          {/* Last Name Input */}
-          <div className="form-card">
-            <label className="h5">{formTr.lastName.label}</label>
-            <input
-              className="input-field"
-              type="text"
-              placeholder={formTr.lastName.pl}
-              value={formData.lastName}
-              onChange={(e) => handleInputChange('lastName', e.target.value)}
-            />
-          </div>
-
-          {/* Phone Number Input */}
           <div className="form-card">
             <label className="h5">{formTr.phoneNumber.label}</label>
             <input
@@ -145,12 +92,8 @@ const Signup = () => {
               value={formData.phoneNumber}
               onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
             />
-            {errors.phoneNumber && (
-              <span className="error">{errors.phoneNumber}</span>
-            )}
           </div>
 
-          {/* Password Input */}
           <div className="form-card">
             <label className="h5">{formTr.password.label}</label>
             <div className="password-wrapper">
@@ -171,12 +114,8 @@ const Signup = () => {
                 />
               </button>
             </div>
-            {errors.password && (
-              <span className="error">{errors.password}</span>
-            )}
           </div>
 
-          {/* Submit Button */}
           <div className="action row input">
             <ActionButton
               loading={loading}
@@ -190,4 +129,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

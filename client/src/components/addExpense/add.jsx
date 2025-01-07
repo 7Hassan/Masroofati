@@ -56,15 +56,23 @@ const WeekBudget = ({ text, income, outcome }) => {
   );
 };
 
-const AddExpense = () => {
+const AddExpense = ({ data }) => {
   const { t } = useTranslation();
   const add = t('add', { returnObjects: true });
 
   return (
     <div className="add-expensed">
-      <MonthBudget income={300} outcome={100} />
-      <WeekBudget text={add.day.text} income={300} outcome={100} />
-      <WeekBudget text={add.week.text} income={300} outcome={100} />
+      <MonthBudget income={data.monthIncome} outcome={data.monthOutcome} />
+      <WeekBudget
+        text={add.day.text}
+        income={data.dayIncome}
+        outcome={data.dayOutcome}
+      />
+      <WeekBudget
+        text={add.week.text}
+        income={data.weekIncome}
+        outcome={data.weekOutcome}
+      />
       <div className="btn-expensed row">
         <Link className="btn bg" to="/add">
           <div className="h5">{add.btn}</div>

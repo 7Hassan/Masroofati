@@ -17,12 +17,12 @@ app.use(express.json())
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: 'https://lecture-app-psu.vercel.app',
+  origin: 'http://localhost:5173',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 };
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(mongoSanitize())
 app.use(xssClean())
 app.use(hpp())

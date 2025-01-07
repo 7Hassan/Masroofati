@@ -4,57 +4,18 @@ import { Chooser } from '../../utils/components';
 import { useState } from 'react';
 import TempView from './temp';
 
-const ViewExpense = () => {
+const ViewExpense = ({ data }) => {
   const { t } = useTranslation();
   const chooser = t('view.chooser', { returnObjects: true });
-  const [sec, setSec] = useState(chooser[1].code);
+  const [sec, setSec] = useState(chooser[0].code);
   const [isAnimating, setIsAnimating] = useState(false);
-  const data = {
-    totalIncome: 100,
-    totalOutcome: 200,
-    income: [
-      {
-        _id: '677b96264c1ae97ad664c805',
-        label: 'schoola',
-        value: 200,
-        color: '#2ECC71',
-        type: 'income',
-        date: '2025-01-05T22:00:00.000Z',
-      },
-      {
-        _id: '677b96264c1a97ad664c805',
-        label: 'schoola',
-        value: 50,
-        color: '#2ECC71',
-        type: 'income',
-        date: '2025-01-05T22:00:00.000Z',
-      },
-    ],
-    outcome: [
-      {
-        _id: '677b96264c1ae97ad664c905',
-        label: 'schoola',
-        value: 200,
-        color: '#2ECC71',
-        type: 'outcome',
-        date: '2025-01-05T22:00:00.000Z',
-      },
-      {
-        _id: '677b96264c1ae97ad664c705',
-        label: 'schoola',
-        value: 100,
-        color: '#2ECC71',
-        type: 'outcome',
-        date: '2025-01-05T22:00:00.000Z',
-      },
-    ],
-  };
+
 
   const sections = {
-    day: <TempView data={data} type="day" />,
-    week: <TempView data={data} type="week" />,
-    month: <TempView data={data} type="month" />,
-    year: <TempView data={data} type="year" />,
+    day: <TempView data={data.day} type="day" />,
+    week: <TempView data={data.week} type="week" />,
+    month: <TempView data={data.month} type="month" />,
+    year: <TempView data={data.year} type="year" />,
   };
   const handleSectionChange = (newSection) => {
     if (newSection !== sec) {

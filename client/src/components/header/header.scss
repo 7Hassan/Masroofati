@@ -1,6 +1,44 @@
 header {
   padding: 10px 0;
 
+  // HeaderButtons.scss
+  .header-buttons {
+    display: flex;
+    gap: 1rem;
+
+    .btnn {
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.login-btn {
+        background: linear-gradient(90deg, #4a90e2, #0057e7);
+        color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 87, 231, 0.2);
+
+        &:hover {
+          background: linear-gradient(90deg, #0057e7, #4a90e2);
+          box-shadow: 0 6px 12px rgba(0, 87, 231, 0.4);
+        }
+      }
+
+      &.signup-btn {
+        background: linear-gradient(90deg, #ff7f50, #ff4500);
+        color: #fff;
+        box-shadow: 0 4px 8px rgba(255, 69, 0, 0.2);
+
+        &:hover {
+          background: linear-gradient(90deg, #ff4500, #ff7f50);
+          box-shadow: 0 6px 12px rgba(255, 69, 0, 0.4);
+        }
+      }
+    }
+  }
+
   .container {
     $imgWidth: 40px;
     $logoImg: $imgWidth;

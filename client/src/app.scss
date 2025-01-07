@@ -8,6 +8,24 @@
     padding: 0 20px;
     min-height: 100vh;
 
+    .home {
+      &.loading {
+        position: relative;
+        height: 100vh;
+        width: 100%;
+
+        img {
+          width: 50px;
+          height: 50px;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+
+      }
+    }
   }
 }
 
@@ -37,6 +55,20 @@
   gap: 0;
   margin-top: 20px;
 
+  &.add-home {
+    .item {
+
+      &.active-btn {
+        background: linear-gradient(90deg, #4a90e2, #0057e7);
+
+        &.view {
+          background: linear-gradient(270deg, #4a90e2, #0057e7);
+        }
+
+      }
+    }
+  }
+
   .item {
     flex: 1;
     text-align: center;
@@ -46,9 +78,7 @@
     font-weight: 600;
 
     &.active-btn {
-      background-color: #6A9ED1;
       color: white;
-
     }
 
   }
@@ -94,13 +124,22 @@ img.icon-st {
   transition: all 0.3s;
   cursor: pointer;
 
+  &.disabled {
+    opacity: .7;
+  }
+
+  img {
+    width: 25px;
+  }
+
   &.stretch {
     min-width: 220px;
+    height: 50px;
   }
 
   &.bg {
-    background-color: var(--blue);
-    color: white !important;
+    background: linear-gradient(90deg, var(--blue), #0057e7);
+    color: #fff;
     font-weight: 800;
   }
 }
@@ -210,6 +249,23 @@ img.icon-st {
 
 }
 
+.auth {
+  max-width: 350px;
+  margin: auto;
+  gap: 15px;
+
+  .btn {
+    width: 50%;
+    padding: 7px 30px;
+
+    &.signup-btn {
+      background: linear-gradient(270deg, #f74200, #ff4500);
+      border: none;
+    }
+  }
+
+}
+
 .slide-parent {
   background-color: unset;
   border-radius: 0;
@@ -220,10 +276,13 @@ img.icon-st {
   .item {
     background-color: unset;
     position: relative;
+    font-size: 18px;
 
     &.active-btn {
       color: unset;
       background-color: unset;
+      background: unset;
+      font-weight: 700;
 
       &::after {
         content: '';
@@ -300,7 +359,8 @@ img.icon-st {
 
 
     .day-trans {
-      gap: 20px;
+      justify-content: unset;
+      gap: 50px;
       margin-bottom: 15px;
 
       .value {
@@ -308,6 +368,9 @@ img.icon-st {
       }
 
       .text {
+        width: 90px;
+        text-overflow: ellipsis;
+        overflow: hidden;
         white-space: nowrap;
       }
     }
@@ -328,5 +391,19 @@ img.icon-st {
   .MuiChartsAxis-tickLabel {
     font-weight: 600 !important;
 
+  }
+}
+
+img.loading {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

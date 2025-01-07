@@ -14,19 +14,27 @@ exports.protectAPI = catchError(async (req, res, next) => {
 })
 
 exports.user = catchError(async (req, res, next) => {
-  const user = req.user
-  const { firstName, lastName, img } = user
-  res.status(200).json({ success: true, data: { firstName, lastName } });
+  const user = req.user;
+  res.status(200).json({ success: true, data: { firstName: user.firstName, lastName: user.lastName, labels: user.labels } });
 })
 
 
 
 
 
-exports.homeData = catchError(async (req, res, next) => {
+exports.data = catchError(async (req, res, next) => {
   const today = new Date();
-  const data = helper.calculateMoney(req.user.years, today);
-  res.status(200).json({ success: true, data });
+  const analyticsData = helper.calculateMoney(req.user.years, today);
+  const transData = helper.getTransactions(req.user.years, today);
+
+  res.status(200).json({ success: true, data: { analyticsData, transData } });
+});
+
+
+exports.analyticsData = catchError(async (req, res, next) => {
+  const today = new Date();
+  const data = helper.getTransactions(req.user.years, today);
+  res.status(200).json({ success: true, data: data });
 });
 
 
@@ -35,7 +43,7 @@ exports.homeData = catchError(async (req, res, next) => {
 exports.add = catchError(async (req, res, next) => {
   const { value, type, date, label } = req.body;
   const transactionDate = new Date(date);
-  const { day, week, month, year } = helper.getDates(transactionDate)
+  const { day, week, month, monthNum, year } = helper.getDates(transactionDate)
   const user = req.user;
   let existYear = true;
 
@@ -47,7 +55,7 @@ exports.add = catchError(async (req, res, next) => {
 
   let monthData = yearData.months.find((m) => m.month === month);
   if (!monthData) {
-    monthData = { month, totalIncome: 0, totalOutcome: 0, weeks: [] };
+    monthData = { month, monthNum: monthNum, totalIncome: 0, totalOutcome: 0, weeks: [] };
     yearData.months.push(monthData);
   }
 
@@ -59,7 +67,7 @@ exports.add = catchError(async (req, res, next) => {
 
   let dayData = weekData.days.find((d) => d.day === day);
   if (!dayData) {
-    dayData = { day: day, totalIncome: 0, totalOutcome: 0, income: [], outcome: [] };
+    dayData = { day: day, name: format(transactionDate, 'EEE'), totalIncome: 0, totalOutcome: 0, income: [], outcome: [] };
     weekData.days.push(dayData);
   }
 
