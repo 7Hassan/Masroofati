@@ -22,13 +22,14 @@ const Logo = () => {
   const logo = t('header.logo', { returnObjects: true });
 
   return (
-    <div className="user row">
-      <div className="img">
-        <img src={logo.img.src} alt={logo.img.alt} loading="lazy" />
-      </div>
-      <div className="text">
-        <h5>{logo.text}</h5>
-      </div>
+    <div className="logos row">
+      <img src={logo.img.src} alt={logo.img.alt} loading="lazy" />
+      <img
+        src={logo.textLogo.src}
+        alt={logo.textLogo.alt}
+        className="text-logo"
+        loading="lazy"
+      />
     </div>
   );
 };

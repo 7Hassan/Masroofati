@@ -22,13 +22,32 @@ export const Loading = ({ type }) => {
   return (
     <>
       {type === 'white' && (
-        <img src={loading} alt="loading" className="loading" />
+        <img src="/icons/loading.png" alt="loading" className="spine" />
       )}
       {type === 'color' && (
-        <img src={LoadingColor} alt="loading" className="loading" />
+        <img src={LoadingColor} alt="loading" className="spine" />
       )}
       {type === 'red' && (
-        <img src={loadingRed} alt="loading" className="loading" />
+        <img src={loadingRed} alt="loading" className="spine" />
+      )}
+      {type === 'page' && (
+        <>
+          <div className="loading loading-img">
+            <img
+              src="/icons/loading-logo.png"
+              alt="loading"
+              className="spine loading-page-img"
+            />
+          </div>
+
+          <div className="loading">
+            <img
+              src="/icons/logo.png"
+              alt="image"
+              className="loading-page-img"
+            />
+          </div>
+        </>
       )}
     </>
   );

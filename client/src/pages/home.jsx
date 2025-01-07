@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
   const navigate = useNavigate();
-
   const handleNavigation = (path) => {
     navigate(path);
   };
@@ -92,7 +91,6 @@ const Home = () => {
       });
       const result = await response.json();
       setLoading(false);
-
       if (result.success) {
         setUserData(result.data);
       } else {
@@ -113,12 +111,12 @@ const Home = () => {
   if (loading) {
     return (
       <div className="home loading">
-        <Loading type="color" />
+        <Loading type="page" />
       </div>
     );
   }
 
-  if (!userData) {
+  if (!loading && !userData) {
     return (
       <div className="home page-err">
         <Header />

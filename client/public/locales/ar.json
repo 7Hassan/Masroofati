@@ -1,13 +1,16 @@
 {
   "currency": "ج",
-  "pageErr": "تعذر جلب البيانات من الخاد، حاول في وقت لاحق",
+  "pageErr": "تعذر جلب البيانات من الخادم، حاول في وقت لاحق",
   "header": {
     "logo": {
       "img": {
-        "src": "https://via.placeholder.com/800x400?text=Slide+1",
+        "src": "/icons/logo.png",
         "alt": "logo"
       },
-      "text": "مصروفاتي"
+      "textLogo": {
+        "src": "/icons/text-logo-ar.png",
+        "alt": "logo"
+      }
     }
   },
   "nav": [
@@ -84,7 +87,7 @@
   "addForm": {
     "head": {
       "img": {
-        "src": "https://via.placeholder.com/800x400?text=Slide+1",
+        "src": "/icons/logo.png",
         "alt": "logo",
         "url": "/"
       },
@@ -123,7 +126,7 @@
   "signup": {
     "head": {
       "img": {
-        "src": "https://via.placeholder.com/800x400?text=Slide+1",
+        "src": "/icons/logo.png",
         "alt": "logo",
         "url": "/"
       },
@@ -158,7 +161,7 @@
   "login": {
     "head": {
       "img": {
-        "src": "https://via.placeholder.com/800x400?text=Slide+1",
+        "src": "/icons/logo.png",
         "alt": "logo",
         "url": "/"
       },

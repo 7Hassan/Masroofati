@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
+    "devc": "cd ../client && npm run dev",
     "start": "node index.js"
   },
   "author": "Hassan Hossam",

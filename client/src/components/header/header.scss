@@ -1,5 +1,5 @@
 header {
-  padding: 10px 0;
+  padding: 15px 0;
 
   // HeaderButtons.scss
   .header-buttons {
@@ -45,8 +45,8 @@ header {
 
 
     .lang,
-    .user {
-      gap: 7px;
+    .logos {
+      gap: 0px;
     }
 
     .lang {
@@ -60,11 +60,16 @@ header {
       width: $imgWidth;
     }
 
-    .user {
+    .logos {
       img {
-        height: $logoImg;
-        width: $logoImg;
         border-radius: 50%;
+
+        &.text-logo {
+          $textLogo: $logoImg+60px;
+          width: $textLogo;
+          border-radius: unset;
+          margin-top: 2px;
+        }
       }
     }
   }
