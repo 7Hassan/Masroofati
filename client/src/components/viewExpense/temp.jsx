@@ -13,13 +13,6 @@ const SlideLineTemp = ({ incomeValues, outcomeValues, text, xAxis }) => {
 
   return <SlideLine data={{ income, outcome, xAxis }} text={text} />;
 };
-const SlideLineMonth = ({ text }) => {
-  const xAxis = ['week1', 'week2', 'week3', 'week4'];
-  const income = [200, 300, 150, 400];
-  const outcome = [100, 200, 50, 300];
-
-  return <SlideLine data={{ income, outcome, xAxis }} text={text} />;
-};
 
 const SlidePieDay = ({ data }) => {
   const { t } = useTranslation();
@@ -59,7 +52,6 @@ const Swipe = ({ data, type }) => {
             text={analytics.inOut}
           />
         )}
-        {/* {type == 'month' && <SlideLineMonth text={analytics.inOut} />} */}
       </SwiperSlide>
       <SwiperSlide>
         {<SlidePie data={outcome} text={analytics.out} />}
@@ -71,7 +63,7 @@ const Swipe = ({ data, type }) => {
   );
 };
 
-const TempView = ({ data, type }) => {
+const TempView = ({ data, type, setUserData }) => {
   const { income, outcome } = data;
 
   return (
@@ -81,6 +73,7 @@ const TempView = ({ data, type }) => {
         allTrans={[...income, ...outcome]}
         incomeTrans={income}
         outcomeTrans={outcome}
+        setUserData={setUserData}
       />
     </div>
   );

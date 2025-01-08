@@ -4,8 +4,11 @@ import Add from './pages/add';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import './app.scss';
+import { message } from 'antd';
 
 function App() {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const router = createBrowserRouter([
     {
       path: '/',
@@ -13,11 +16,11 @@ function App() {
     },
     {
       path: '/signup',
-      element: <Signup />,
+      element: <Signup messageApiApp={messageApi} />,
     },
     {
       path: '/login',
-      element: <Login />,
+      element: <Login messageApiApp={messageApi} />,
     },
     {
       path: '/add',
@@ -28,6 +31,7 @@ function App() {
   return (
     <div className="app">
       <div className="container-app">
+        {contextHolder}
         <RouterProvider router={router} />
       </div>
     </div>

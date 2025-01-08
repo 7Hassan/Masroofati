@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 import { useState } from 'react';
 import { IncomeIcon, OutcomeIcon } from '../components/eles';
+import { url } from './variables';
+import { message } from 'antd';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { BarChart } from '@mui/x-charts';
@@ -11,6 +13,9 @@ export const Loading = ({ type }) => {
     <>
       {type === 'white' && (
         <img src="/icons/loading.png" alt="loading" className="spine" />
+      )}
+      {type === 'red' && (
+        <img src="/icons/loading-red.png" alt="loading" className="spine" />
       )}
       {type === 'page' && (
         <>
@@ -140,13 +145,38 @@ export const SlidePie = ({ data, text }) => {
   );
 };
 
-const DayTrans = ({ data }) => {
+const DayTrans = ({ data, setUserData }) => {
   const { t } = useTranslation();
   const currency = t('currency', { returnObjects: true });
   const { type, value, date, label } = data;
+  const [loading, setLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const handleDelete = () => {
+    setLoading(true);
+    fetch(`${url}/api/delete`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...data }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        if (!data.success) throw new Error(data.msg);
+        setUserData(data.data);
+      })
+      .catch((error) => {
+        setLoading(false);
+        messageApi.error({ content: error.message, duration: 5 });
+      });
+  };
 
   return (
     <div className="day-trans row">
+      {contextHolder}
       {type == 'income' && <IncomeIcon />}
       {type == 'outcome' && <OutcomeIcon />}
       <div className="value text">
@@ -154,32 +184,48 @@ const DayTrans = ({ data }) => {
       </div>
       <div className="day text"> {format(new Date(date), 'dd/MM/yyyy')}</div>
       <div className="label text">{label}</div>
+      {loading && (
+        <div className="label text delete" onClick={handleDelete}>
+          <Loading type="red" />
+        </div>
+      )}
+
+      {!loading && (
+        <div className="label text delete" onClick={handleDelete}>
+          <img src="/icons/remove.png" alt="" />
+        </div>
+      )}
     </div>
   );
 };
 
-const List = ({ list }) => {
+const List = ({ list, setUserData }) => {
   return (
     <div className="all-trans">
       <div className="container">
         {list.map((item) => (
-          <DayTrans data={item} key={item._id} />
+          <DayTrans data={item} key={item._id} setUserData={setUserData} />
         ))}
       </div>
     </div>
   );
 };
 
-export const Transports = ({ allTrans, incomeTrans, outcomeTrans }) => {
+export const Transports = ({
+  allTrans,
+  incomeTrans,
+  outcomeTrans,
+  setUserData,
+}) => {
   const { t } = useTranslation();
   const trans = t('view.trans', { returnObjects: true });
   const [sec, setSec] = useState('outcome');
   const [isAnimating, setIsAnimating] = useState(false);
 
   const sections = {
-    all: <List list={allTrans} />,
-    income: <List list={incomeTrans} />,
-    outcome: <List list={outcomeTrans} />,
+    all: <List list={allTrans} setUserData={setUserData} />,
+    income: <List list={incomeTrans} setUserData={setUserData} />,
+    outcome: <List list={outcomeTrans} setUserData={setUserData} />,
   };
 
   const handleSectionChange = (newSection) => {

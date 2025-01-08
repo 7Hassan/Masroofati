@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { ActionButton } from '../utils/components';
 import { url } from '../utils/variables';
+import { message } from 'antd';
 import './signup.scss';
 import './add.scss';
-import { message } from 'antd';
 const Head = () => {
   const { t } = useTranslation();
   const head = t('signup.head', { returnObjects: true });
@@ -25,10 +25,10 @@ const Head = () => {
   );
 };
 
-const Signup = () => {
+const Signup = ({ messageApiApp }) => {
   const { t } = useTranslation();
   const [messageApi, contextHolder] = message.useMessage();
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
   const formTr = t('signup.form', { returnObjects: true });
   const [loading, setLoading] = useState(false);
 
@@ -79,7 +79,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid || loading) return;
-    console.log(formData);
     setLoading(true);
 
     fetch(`${url}/auth/signup`, {
@@ -92,11 +91,9 @@ const Signup = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('🚀 ~ data:', data);
+        if (!data.success) throw new Error(data.msg);
         setLoading(false);
-        if (!data.success)
-          throw new Error(data.msg || 'Signup failed. Please try again');
-        messageApi.success('Welcome to Masroofati');
+        messageApiApp.success(formTr.msgSignup);
         navigate('/');
       })
       .catch((error) => {
@@ -146,7 +143,7 @@ const Signup = () => {
               onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
             />
             {errors.phoneNumber && (
-              <span className="error">{errors.phoneNumber}</span>
+              <span className="error-form">{errors.phoneNumber}</span>
             )}
           </div>
 
@@ -172,7 +169,7 @@ const Signup = () => {
               </button>
             </div>
             {errors.password && (
-              <span className="error">{errors.password}</span>
+              <span className="error-form">{errors.password}</span>
             )}
           </div>
 

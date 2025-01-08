@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, Navigate } from 'react-router-dom'; // Ensure correct import
+import { Link, useNavigate } from 'react-router-dom'; // Ensure correct import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './add.scss';
@@ -27,8 +27,9 @@ const Head = () => {
   );
 };
 
-const Login = () => {
+const Login = ({ messageApiApp }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const formTr = t('login.form', { returnObjects: true });
 
@@ -52,7 +53,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid || loading) return;
-    console.log(formData);
     setLoading(true);
 
     fetch(`${url}/auth/login`, {
@@ -65,11 +65,10 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (!data.success) throw new Error(data.msg);
         setLoading(false);
-        if (!data.success)
-          throw new Error(data.msg || 'Signup failed. Please try again');
-        messageApi.success('Welcome to Masroofati');
-        Navigate('/');
+        messageApiApp.success(formTr.msgLogin);
+        navigate('/');
       })
       .catch((error) => {
         setLoading(false);

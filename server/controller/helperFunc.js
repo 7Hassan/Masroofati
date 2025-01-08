@@ -82,7 +82,6 @@ function objCreator(weekNumberInMon) {
 }
 exports.calculateMoney = (years, date) => {
   const { day, week, month, year } = exports.getDates(date);
-
   const initial = {
     dayIncome: 0, dayOutcome: 0,
     weekIncome: 0, weekOutcome: 0,
@@ -100,7 +99,6 @@ exports.calculateMoney = (years, date) => {
 
   const monthData = yearData.months.find((m) => m.month == month);
   if (!monthData) return initial;
-
   Object.assign(initial, {
     monthIncome: monthData.totalIncome,
     monthOutcome: monthData.totalOutcome,

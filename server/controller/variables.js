@@ -1,14 +1,5 @@
 const daysData = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-const colorsData = [
-  '#06008d',
-  '#180090',
-  '#2b0093',
-  '#3e0096',
-  '#510099',
-  '#5b099c',
-  '#482ea0',
-  '#3455a4',
-];
+const colorsData = ["#8A2BE2", "#00CED1", "#4682B4", "#9370DB"];
 
 module.exports = {
   daysData,

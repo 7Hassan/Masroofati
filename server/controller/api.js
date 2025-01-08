@@ -21,7 +21,6 @@ exports.createGuestAccount = catchError(async (req, res, next) => {
     const jwtToken = helper.createJwtToken(guestUser._id);
     res.cookie('jwt', jwtToken, helper.cookieOptions);
     req.user = guestUser;
-    res.locals.user = guestUser;
   }
   next();
 });
@@ -55,14 +54,55 @@ exports.data = catchError(async (req, res, next) => {
 });
 
 
-exports.analyticsData = catchError(async (req, res, next) => {
+
+
+exports.delete = catchError(async (req, res, next) => {
+  const { value, type, date, _id } = req.body;
+
+  const transactionDate = new Date(date);
+  const { day, week, month, monthNum, year } = helper.getDates(transactionDate)
+  const user = req.user;
   const today = new Date();
-  const data = helper.getTransactions(req.user.years, today);
-  res.status(200).json({ success: true, data: data });
+
+  let yearData = user.years.find((y) => y.year === year);
+  if (!yearData) return next();
+
+  let monthData = yearData.months.find((m) => m.month === month);
+  if (!monthData) return next();
+
+  let weekData = monthData.weeks.find((w) => w.weekNumber === week);
+  if (!weekData) return next();
+
+  let dayData = weekData.days.find((d) => d.day === day);
+  if (!dayData) return next();
+
+  let trans = dayData[type].find((t) => (t._id.toString() == _id.toString()));
+  if (!trans) return next();
+
+
+  if (trans.type == "income") {
+    dayData.totalIncome -= trans.value;
+    weekData.totalIncome -= trans.value;
+    monthData.totalIncome -= trans.value;
+    yearData.totalIncome -= trans.value;
+    dayData.income = dayData.income.filter((t) => (t._id.toString() != _id.toString()));
+  } else {
+    dayData.totalOutcome -= trans.value;
+    weekData.totalOutcome -= trans.value;
+    monthData.totalOutcome -= trans.value;
+    yearData.totalOutcome -= trans.value;
+    dayData.outcome = dayData.outcome.filter((t) => (t._id.toString() != _id.toString()));
+  }
+
+  await user.save()
+  const analyticsData = helper.calculateMoney(user.years, today);
+  const transData = helper.getTransactions(user.years, today);
+  res.status(200).json({ success: true, data: { isGuest: user.isGuest, analyticsData, transData } });
 });
 
-
-
+exports.deleteErr = catchError(async (req, res, next) => {
+  next(new AppError('Transaction not found', 401));
+})
 
 exports.add = catchError(async (req, res, next) => {
   const { value, type, date, label } = req.body;

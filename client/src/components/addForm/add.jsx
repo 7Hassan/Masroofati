@@ -9,6 +9,7 @@ const ExpenseForm = ({ labels }) => {
   const { t } = useTranslation();
   const formTr = t('addForm.form', { returnObjects: true });
   const [messageApi, contextHolder] = message.useMessage();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     value: '',
@@ -17,7 +18,6 @@ const ExpenseForm = ({ labels }) => {
     label: '',
   });
 
-  const [loading, setLoading] = useState(false);
   const isFormValid = formData.value > 0 && formData.label.trim().length > 0;
 
   const handleInputChange = (field, value) => {
@@ -52,9 +52,9 @@ const ExpenseForm = ({ labels }) => {
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
-        if (!data.success)
-          throw new Error(data.msg || 'Signup failed. Please try again');
-        messageApi.success(formTr.success);
+        if (!data.success) throw new Error(data.msg);
+        const msg = formData.type == 'outcome' ? formTr.msgout : formTr.msgin;
+        messageApi.success(msg);
       })
       .catch((error) => {
         setLoading(false);

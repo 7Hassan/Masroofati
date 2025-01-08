@@ -98,7 +98,8 @@
       }
     },
     "form": {
-      "success": "All set! Successfully added.",
+      "msgin": "Yeah, that's it! Add more money 😂💸",
+      "msgout": "This spending needs some brakes! 🥺",
       "valueIn": {
         "label": "Amount",
         "pl": "Enter the amount here",

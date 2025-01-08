@@ -31,8 +31,7 @@ const Auth = () => {
   );
 };
 
-
-const AnimatedSec = ({ data }) => {
+const AnimatedSec = ({ data, setUserData }) => {
   const { t } = useTranslation();
   const nav = t('nav', { returnObjects: true });
   const [sec, setSec] = useState(nav[0]?.code || '');
@@ -53,7 +52,7 @@ const AnimatedSec = ({ data }) => {
   const sections = useMemo(
     () => ({
       add: <AddExpense data={analyticsData} />,
-      view: <ViewExpense data={transData} />,
+      view: <ViewExpense data={transData} setUserData={setUserData}/>,
     }),
     [analyticsData, transData]
   );
@@ -75,39 +74,30 @@ const AnimatedSec = ({ data }) => {
 };
 
 const Home = () => {
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const pageErr = t('pageErr', { returnObjects: true });
-
-  const fetchUserData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${url}/api/data`, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const result = await response.json();
-      setLoading(false);
-      if (result.success) {
-        setUserData(result.data);
-      } else {
-        console.error('Error:', result.data?.msg || 'Unknown error');
-        setUserData(null);
-      }
-    } catch (error) {
-      setLoading(false);
-      console.error('Fetch Error:', error.message);
-      setUserData(null);
-    }
-  };
+  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    fetchUserData();
-  }, []);
+    fetch(`${url}/api/data`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.success) throw new Error(data.msg);
+        setUserData(data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setUserData(null);
+        setLoading(false);
+      });
+  }, [loading]);
 
   if (loading) {
     return (
@@ -129,10 +119,9 @@ const Home = () => {
   return (
     <div className="home">
       <Header />
-      <AnimatedSec data={userData} />
+      <AnimatedSec data={userData} setUserData={setUserData} />
     </div>
   );
 };
 
 export default Home;
-

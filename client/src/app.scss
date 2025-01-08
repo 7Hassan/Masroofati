@@ -338,8 +338,8 @@ img.icon-st {
 
 
     .day-trans {
-      justify-content: unset;
-      gap: 50px;
+      justify-content: space-between;
+      gap: 10px;
       margin-bottom: 15px;
 
       .value {
@@ -351,6 +351,24 @@ img.icon-st {
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+      }
+
+      .delete {
+        min-width: 30px;
+        max-width: 30px;
+        min-height: 30px;
+        max-height: 30px;
+        background-color: var(--outcome-bg);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        img {
+          margin: auto;
+          width: 18px;
+        }
       }
     }
   }

@@ -17,6 +17,7 @@ app.use(express.json())
 app.use(bodyParser.json());
 
 const corsOptions = {
+  // origin: 'http://localhost:5173',
   origin: 'https://masroofati.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
@@ -42,9 +43,9 @@ const limiter = limitReq({
 
 
 app.use('/auth', limiter)
-
 app.use('/auth', require('./routes/auth'));
 app.use('/api', require('./routes/api'));
+
 app.all('*', (req, res, next) => next(new AppError('not found', 404)))
 app.use(errorHandler)
 
