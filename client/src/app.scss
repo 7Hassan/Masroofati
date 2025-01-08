@@ -3,7 +3,7 @@
     margin: auto;
     width: 100%;
     height: 100%;
-    max-width: 500px;
+    max-width: 800px;
     background-color: var(--bg-color);
     padding: 0 20px;
     min-height: 100vh;
@@ -381,7 +381,7 @@ img.icon-st {
 
   .css-10d7jww-MuiChartsAxis-root-MuiChartsYAxis-root {
     .MuiChartsAxis-tickLabel {
-      transform: translateX(-25px);
+      transform: translateX(-40px) !important;
     }
   }
 
@@ -398,3 +398,13 @@ img.icon-st {
     }
   }
 }
+
+.prevent-hover {
+  width: 100%;
+  height: 300px;
+  // background-color: red;
+  position: absolute;
+  z-index: 2;
+}
+
+

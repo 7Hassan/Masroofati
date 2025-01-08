@@ -63,6 +63,10 @@
     .text {
       width: 40%;
       justify-content: unset;
+
+      .h3 {
+        white-space: nowrap;
+      }
     }
   }
 

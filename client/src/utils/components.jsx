@@ -6,7 +6,7 @@ import { url } from './variables';
 import { message } from 'antd';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
-import { BarChart } from '@mui/x-charts';
+import { BarChart, barLabelClasses } from '@mui/x-charts';
 
 export const Loading = ({ type }) => {
   return (
@@ -245,7 +245,7 @@ export const Transports = ({
   return (
     <div className="transported">
       <h4 className="title">
-        {trans.text} <span className='text-color'>{text}</span>
+        {trans.text} <span className="text-color">{text}</span>
       </h4>
       <Chooser
         setItem={handleSectionChange}
