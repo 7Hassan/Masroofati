@@ -12,6 +12,7 @@ exports.cookieOptions = {
   sameSite: 'none',
 };
 
+
 exports.createJwtToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRED });
 
