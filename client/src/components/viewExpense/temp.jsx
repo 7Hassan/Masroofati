@@ -37,11 +37,23 @@ const SlidePieDay = ({ data, textSt }) => {
   return <SlidePie data={InOutCome} text={analytics.inOut} textSt={textSt} />;
 };
 
+const newArray = (arr) => {
+  const aggregatedArray = Object.values(
+    arr.reduce((acc, item) => {
+      if (!acc[item.label]) acc[item.label] = { ...item, value: 0 };
+      acc[item.label].value += item.value;
+      return acc;
+    }, {})
+  );
+  return aggregatedArray;
+};
 const Swipe = ({ data, type, text }) => {
   const { t } = useTranslation();
   const analytics = t('view.analytics.text', { returnObjects: true });
   const daysInMonth = Math.ceil(getDaysInMonth(new Date()) / 7);
   const { totalIncome, totalOutcome, income, outcome } = data;
+  const newIncome = newArray(income);
+  const newOutcome = newArray(outcome);
   const xAxis =
     type == 'week'
       ? daysData
@@ -65,13 +77,14 @@ const Swipe = ({ data, type, text }) => {
           />
         )}
       </SwiperSlide>
+
       <SwiperSlide>
         <div className="prevent-hover"></div>
-        {<SlidePie data={outcome} text={analytics.out} textSt={text} />}
+        {<SlidePie data={newOutcome} text={analytics.out} textSt={text} />}
       </SwiperSlide>
       <SwiperSlide>
         <div className="prevent-hover"></div>
-        {<SlidePie data={income} text={analytics.in} textSt={text} />}
+        {<SlidePie data={newIncome} text={analytics.in} textSt={text} />}
       </SwiperSlide>
     </Swiper>
   );
