@@ -61,6 +61,7 @@ const WeekMonBudget = ({ text, income, outcome }) => {
 };
 
 const AddExpense = ({ data }) => {
+  console.log('🚀 ~ data:', data)
   const { t } = useTranslation();
   const add = t('add', { returnObjects: true });
 
@@ -70,7 +71,7 @@ const AddExpense = ({ data }) => {
       <WeekMonBudget
         text={add.week.text}
         income={data.weekIncome}
-        outcome={data.weekIncome}
+        outcome={data.weekOutcome}
       />
       <WeekMonBudget
         text={add.month.text}

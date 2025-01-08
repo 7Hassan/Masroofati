@@ -117,38 +117,50 @@ exports.add = catchError(async (req, res, next) => {
     yearData = { year, totalIncome: 0, totalOutcome: 0, months: [] };
   }
 
-  let monthData = yearData.months.find((m) => m.month === month);
-  if (!monthData) {
-    monthData = { month, monthNum: monthNum, totalIncome: 0, totalOutcome: 0, weeks: [] };
+  let monthIndex = yearData.months.findIndex((m) => m.month === month);
+  if (monthIndex === -1) {
+    const monthData = { month, monthNum: monthNum, totalIncome: 0, totalOutcome: 0, weeks: [] };
     yearData.months.push(monthData);
+    monthIndex = yearData.months.length - 1;
   }
 
-  let weekData = monthData.weeks.find((w) => w.weekNumber === week);
-  if (!weekData) {
-    weekData = { weekNumber: week, totalIncome: 0, totalOutcome: 0, days: [] };
-    monthData.weeks.push(weekData);
+  let weekIndex = yearData.months[monthIndex].weeks.findIndex((w) => w.weekNumber === week);
+  if (weekIndex === -1) {
+    const weekData = { weekNumber: week, totalIncome: 0, totalOutcome: 0, days: [] };
+    yearData.months[monthIndex].weeks.push(weekData);
+    weekIndex = yearData.months[monthIndex].weeks.length - 1;
   }
 
-  let dayData = weekData.days.find((d) => d.day === day);
-  if (!dayData) {
-    dayData = { day: day, name: format(transactionDate, 'EEE'), totalIncome: 0, totalOutcome: 0, income: [], outcome: [] };
-    weekData.days.push(dayData);
+  let dayIndex = yearData.months[monthIndex].weeks[weekIndex].days.findIndex((d) => d.day === day);
+  if (dayIndex === -1) {
+    const dayData = {
+      day: day,
+      name: format(transactionDate, 'EEE'),
+      totalIncome: 0,
+      totalOutcome: 0,
+      income: [],
+      outcome: [],
+    };
+    yearData.months[monthIndex].weeks[weekIndex].days.push(dayData);
+    dayIndex = yearData.months[monthIndex].weeks[weekIndex].days.length - 1;
   }
+  const dayData = yearData.months[monthIndex].weeks[weekIndex].days[dayIndex];
+  const weekData = yearData.months[monthIndex].weeks[weekIndex];
+  const monthData = yearData.months[monthIndex];
 
   if (type === "income") {
+    dayData.income.push({ value, type, date: transactionDate, label });
     dayData.totalIncome += value;
     weekData.totalIncome += value;
     monthData.totalIncome += value;
     yearData.totalIncome += value;
-    dayData.income.push({ value, type, date: transactionDate, label });
   } else {
+    dayData.outcome.push({ value, type, date: transactionDate, label });
     dayData.totalOutcome += value;
     weekData.totalOutcome += value;
     monthData.totalOutcome += value;
     yearData.totalOutcome += value;
-    dayData.outcome.push({ value, type, date: transactionDate, label });
   }
-
 
   if (!existYear) user.years.push(yearData);
   const labelCh = user.labels.find((r) => r === label);
@@ -167,3 +179,9 @@ exports.logOut = catchError(async (req, res, next) => {
   res.cookie('jwt', 'out', helper.cookieOptions).status(201)
     .json({ susses: true, msg: "Log out" })
 })
+
+
+
+
+
+
