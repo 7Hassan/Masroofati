@@ -66,7 +66,7 @@ const AddExpense = ({ data }) => {
 
   return (
     <div className="add-expensed">
-      <DayBudget income={data.monthIncome} outcome={data.monthOutcome} />
+      <DayBudget income={data.dayIncome} outcome={data.dayOutcome} />
       <WeekMonBudget
         text={add.week.text}
         income={data.weekIncome}
