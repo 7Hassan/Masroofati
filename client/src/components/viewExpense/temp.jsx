@@ -7,14 +7,22 @@ import { daysData, monthsData, weeksData } from '../../utils/variables';
 import 'swiper/css/pagination';
 import 'swiper/css';
 
-const SlideLineTemp = ({ incomeValues, outcomeValues, text, xAxis }) => {
+const SlideLineTemp = ({
+  incomeValues,
+  outcomeValues,
+  text,
+  xAxis,
+  textSt,
+}) => {
   const income = incomeValues;
   const outcome = outcomeValues;
 
-  return <SlideLine data={{ income, outcome, xAxis }} text={text} />;
+  return (
+    <SlideLine data={{ income, outcome, xAxis }} text={text} textSt={textSt} />
+  );
 };
 
-const SlidePieDay = ({ data }) => {
+const SlidePieDay = ({ data, textSt }) => {
   const { t } = useTranslation();
   const analytics = t('view.analytics.text', { returnObjects: true });
   const InOutCome = [
@@ -26,10 +34,10 @@ const SlidePieDay = ({ data }) => {
     },
     { _id: 1, label: analytics.in, value: data.totalIncome, color: '#2ECC71' },
   ];
-  return <SlidePie data={InOutCome} text={analytics.inOut} />;
+  return <SlidePie data={InOutCome} text={analytics.inOut} textSt={textSt} />;
 };
 
-const Swipe = ({ data, type }) => {
+const Swipe = ({ data, type, text }) => {
   const { t } = useTranslation();
   const analytics = t('view.analytics.text', { returnObjects: true });
   const daysInMonth = Math.ceil(getDaysInMonth(new Date()) / 7);
@@ -43,37 +51,41 @@ const Swipe = ({ data, type }) => {
   return (
     <Swiper pagination={true} modules={[Pagination]} className="my-swiper">
       <SwiperSlide>
-        {type == 'day' && <SlidePieDay data={{ totalIncome, totalOutcome }} />}
+        {type == 'day' && (
+          <SlidePieDay data={{ totalIncome, totalOutcome }} textSt={text} />
+        )}
         {type != 'day' && (
           <SlideLineTemp
             incomeValues={data.incomeValues}
             outcomeValues={data.outcomeValues}
             xAxis={xAxis}
             text={analytics.inOut}
+            textSt={text}
           />
         )}
       </SwiperSlide>
       <SwiperSlide>
-        {<SlidePie data={outcome} text={analytics.out} />}
+        {<SlidePie data={outcome} text={analytics.out} textSt={text} />}
       </SwiperSlide>
       <SwiperSlide>
-        {<SlidePie data={income} text={analytics.in} />}
+        {<SlidePie data={income} text={analytics.in} textSt={text} />}
       </SwiperSlide>
     </Swiper>
   );
 };
 
-const TempView = ({ data, type, setUserData }) => {
+const TempView = ({ data, type, text, setUserData }) => {
   const { income, outcome } = data;
 
   return (
     <div className="temp-view">
-      <Swipe data={data} type={type} />
+      <Swipe data={data} type={type} text={text} />
       <Transports
         allTrans={[...income, ...outcome]}
         incomeTrans={income}
         outcomeTrans={outcome}
         setUserData={setUserData}
+        text={text}
       />
     </div>
   );

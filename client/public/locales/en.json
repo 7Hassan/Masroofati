@@ -1,4 +1,8 @@
 {
+  "auth": {
+    "signup": "Sign up",
+    "login": "Log in"
+  },
   "currency": "EG",
   "pageErr": "Oops, couldn’t fetch the data. Try again later!",
   "header": {

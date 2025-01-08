@@ -8,6 +8,9 @@ import { url } from '../utils/variables';
 import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
+  const { t } = useTranslation();
+  const auth = t('auth', { returnObjects: true });
+
   const navigate = useNavigate();
   const handleNavigation = (path) => {
     navigate(path);
@@ -19,13 +22,13 @@ const Auth = () => {
         className="btn login-btn"
         onClick={() => handleNavigation('/login')}
       >
-        <div className="h5">Login</div>
+        <div className="h5">{auth.login}</div>
       </button>
       <button
         className="btn bg signup-btn"
         onClick={() => handleNavigation('/signup')}
       >
-        <div className="h5">Sign Up</div>
+        <div className="h5">{auth.signup}</div>
       </button>
     </div>
   );
@@ -52,7 +55,7 @@ const AnimatedSec = ({ data, setUserData }) => {
   const sections = useMemo(
     () => ({
       add: <AddExpense data={analyticsData} />,
-      view: <ViewExpense data={transData} setUserData={setUserData}/>,
+      view: <ViewExpense data={transData} setUserData={setUserData} />,
     }),
     [analyticsData, transData]
   );

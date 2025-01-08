@@ -3,10 +3,10 @@ import { IncomeIcon, OutcomeIcon } from '../eles';
 import { Link } from 'react-router-dom';
 import './add.scss';
 
-const MonthBudget = ({ income, outcome }) => {
+const DayBudget = ({ income, outcome }) => {
   const { t } = useTranslation();
   const currency = t('currency');
-  const month = t('add.month', { returnObjects: true });
+  const month = t('add.day', { returnObjects: true });
 
   return (
     <div className="month-budget row">
@@ -36,7 +36,7 @@ const MonthBudget = ({ income, outcome }) => {
   );
 };
 
-const WeekBudget = ({ text, income, outcome }) => {
+const WeekMonBudget = ({ text, income, outcome }) => {
   const { t } = useTranslation();
   const currency = t('currency');
   return (
@@ -66,16 +66,16 @@ const AddExpense = ({ data }) => {
 
   return (
     <div className="add-expensed">
-      <MonthBudget income={data.monthIncome} outcome={data.monthOutcome} />
-      <WeekBudget
-        text={add.day.text}
-        income={data.dayIncome}
-        outcome={data.dayOutcome}
-      />
-      <WeekBudget
+      <DayBudget income={data.monthIncome} outcome={data.monthOutcome} />
+      <WeekMonBudget
         text={add.week.text}
         income={data.weekIncome}
-        outcome={data.weekOutcome}
+        outcome={data.weekIncome}
+      />
+      <WeekMonBudget
+        text={add.month.text}
+        income={data.monthIncome}
+        outcome={data.monthOutcome}
       />
       <div className="btn-expensed row">
         <Link className="btn bg" to="/add">

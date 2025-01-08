@@ -136,10 +136,13 @@ const PieChartEle = ({ data }) => {
   );
 };
 
-export const SlidePie = ({ data, text }) => {
+export const SlidePie = ({ data, text, textSt }) => {
   return (
     <div className="slide">
-      <h4 className="title"> {text}</h4>
+      <h4 className="title">
+        {' '}
+        {text} <span className="text-color">{textSt}</span>
+      </h4>
       <PieChartEle data={data} />
     </div>
   );
@@ -216,6 +219,7 @@ export const Transports = ({
   incomeTrans,
   outcomeTrans,
   setUserData,
+  text,
 }) => {
   const { t } = useTranslation();
   const trans = t('view.trans', { returnObjects: true });
@@ -240,7 +244,9 @@ export const Transports = ({
 
   return (
     <div className="transported">
-      <h4 className="title">{trans.text}</h4>
+      <h4 className="title">
+        {trans.text} <span className='text-color'>{text}</span>
+      </h4>
       <Chooser
         setItem={handleSectionChange}
         activeItem={sec}
@@ -282,10 +288,12 @@ const ChartLine = ({ data }) => {
   );
 };
 
-export const SlideLine = ({ data, text }) => {
+export const SlideLine = ({ data, text, textSt }) => {
   return (
     <div className="slide">
-      <h4 className="title"> {text}</h4>
+      <h4 className="title">
+        {text} <span className="text-color">{textSt}</span>
+      </h4>
       <ChartLine data={data} />
     </div>
   );

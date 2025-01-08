@@ -7,14 +7,43 @@ import TempView from './temp';
 const ViewExpense = ({ data, setUserData }) => {
   const { t } = useTranslation();
   const chooser = t('view.chooser', { returnObjects: true });
+  console.log('🚀 ~ chooser:', chooser);
   const [sec, setSec] = useState(chooser[0].code);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const sections = {
-    day: <TempView data={data.day} type="day" setUserData={setUserData}/>,
-    week: <TempView data={data.week} type="week"  setUserData={setUserData}/>,
-    month: <TempView data={data.month} type="month"  setUserData={setUserData}/>,
-    year: <TempView data={data.year} type="year"  setUserData={setUserData}/>,
+    day: (
+      <TempView
+        data={data.day}
+        type="day"
+        text={chooser[0].name}
+        setUserData={setUserData}
+      />
+    ),
+    week: (
+      <TempView
+        data={data.week}
+        text={chooser[1].name}
+        type="week"
+        setUserData={setUserData}
+      />
+    ),
+    month: (
+      <TempView
+        data={data.month}
+        type="month"
+        text={chooser[2].name}
+        setUserData={setUserData}
+      />
+    ),
+    year: (
+      <TempView
+        data={data.year}
+        type="year"
+        text={chooser[3].name}
+        setUserData={setUserData}
+      />
+    ),
   };
   const handleSectionChange = (newSection) => {
     if (newSection !== sec) {
