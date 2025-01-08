@@ -81,7 +81,7 @@ const ExpenseForm = ({ labels }) => {
           <label className="h5">{formTr.valueIn.label}</label>
           <input
             className="input-field"
-            type="number"
+            type="tel"
             placeholder={formTr.valueIn.pl}
             value={formData.value}
             onChange={(e) =>

@@ -61,7 +61,6 @@ const WeekMonBudget = ({ text, income, outcome }) => {
 };
 
 const AddExpense = ({ data }) => {
-  console.log('🚀 ~ data:', data)
   const { t } = useTranslation();
   const add = t('add', { returnObjects: true });
 
