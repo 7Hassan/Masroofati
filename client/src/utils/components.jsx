@@ -80,6 +80,8 @@ export const Chooser = ({ setItem, activeItem, list, classes }) => {
 
 const PieChartEle = ({ data }) => {
   const TOTAL = data.map((item) => item.value).reduce((a, b) => a + b, 0);
+  const { t } = useTranslation();
+  const currency = t('currency', { returnObjects: true });
 
   const sizing = {
     margin: {
@@ -128,7 +130,7 @@ const PieChartEle = ({ data }) => {
                 backgroundColor: item.color, // Use the color from enrichedData
               }}
             ></div>
-            <div className="label h5"> {item.label}</div>
+            <div className="label h5">{item.label} <span style={{ color:item.color  }}>({item.value} {currency})</span></div>
           </div>
         ))}
       </div>
