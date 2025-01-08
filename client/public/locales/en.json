@@ -138,6 +138,7 @@
       }
     },
     "form": {
+      "msgSignup": "Got money? Come on in straight away 😂💸",
       "firstName": {
         "label": "First Name",
         "pl": "Enter your first name"
@@ -173,6 +174,7 @@
       }
     },
     "form": {
+      "msgLogin": "Hop in and check your cash, mate! 💸😂",
       "phoneNumber": {
         "label": "Phone Number",
         "pl": "Enter your phone number",

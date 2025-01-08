@@ -139,7 +139,7 @@
       }
     },
     "form": {
-      "msgSignup": "Got money? Come on in straight away 😂💸",
+      "msgSignup": "معاك فلوس؟ خش على طول 😂💸",
       "firstName": {
         "label": "الاسم الأول",
         "pl": "اكتب اسمك الأول"
@@ -175,7 +175,7 @@
       }
     },
     "form": {
-      "msgLogin": "Hop in and check your cash, mate! 💸😂",
+      "msgLogin": "خش شوف فلوسك يا بيه! 💸😂",
       "phoneNumber": {
         "label": "رقم الموبايل",
         "pl": "اكتب رقمك هنا",

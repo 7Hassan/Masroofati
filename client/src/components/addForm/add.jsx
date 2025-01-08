@@ -22,7 +22,8 @@ const ExpenseForm = ({ labels }) => {
 
   const handleInputChange = (field, value) => {
     if (field === 'value' && value < 0) {
-      messageApi.error(formTr.valueIn.err);
+      messageApi.error({ content: formTr.valueIn.err, duration: 5 });
+
       return;
     }
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -33,10 +34,10 @@ const ExpenseForm = ({ labels }) => {
 
     if (!isFormValid) {
       if (formData.value <= 0) {
-        messageApi.error(formTr.valueIn.err);
+        messageApi.error({ content: formTr.valueIn.err, duration: 5 });
       }
       if (!formData.label.trim()) {
-        messageApi.error(formTr.labelIn.err);
+        messageApi.error({ content: formTr.labelIn.err, duration: 5 });
       }
       return;
     }
@@ -54,7 +55,7 @@ const ExpenseForm = ({ labels }) => {
         setLoading(false);
         if (!data.success) throw new Error(data.msg);
         const msg = formData.type == 'outcome' ? formTr.msgout : formTr.msgin;
-        messageApi.success(msg);
+        messageApi.error({ content: msg, duration: 5 });
       })
       .catch((error) => {
         setLoading(false);
