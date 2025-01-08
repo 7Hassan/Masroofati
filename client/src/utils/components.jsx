@@ -223,7 +223,7 @@ export const Transports = ({
 }) => {
   const { t } = useTranslation();
   const trans = t('view.trans', { returnObjects: true });
-  const [sec, setSec] = useState('outcome');
+  const [sec, setSec] = useState('all');
   const [isAnimating, setIsAnimating] = useState(false);
 
   const sections = {

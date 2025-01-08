@@ -7,7 +7,7 @@ import TempView from './temp';
 const ViewExpense = ({ data, setUserData }) => {
   const { t } = useTranslation();
   const chooser = t('view.chooser', { returnObjects: true });
-  const [sec, setSec] = useState(chooser[0].code);
+  const [sec, setSec] = useState(chooser[1].code);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const sections = {

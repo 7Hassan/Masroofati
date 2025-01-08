@@ -74,16 +74,16 @@
       "text": "Transactions",
       "chooser": [
         {
+          "code": "all",
+          "name": "All"
+        },
+        {
           "code": "outcome",
           "name": "Expenses"
         },
         {
           "code": "income",
           "name": "Income"
-        },
-        {
-          "code": "all",
-          "name": "All"
         }
       ]
     }

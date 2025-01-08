@@ -74,16 +74,16 @@
       "text": "معاملات",
       "chooser": [
         {
+          "code": "all",
+          "name": "الكل"
+        },
+        {
           "code": "outcome",
           "name": "المصروفات"
         },
         {
           "code": "income",
           "name": "الدخل"
-        },
-        {
-          "code": "all",
-          "name": "الكل"
         }
       ]
     }
