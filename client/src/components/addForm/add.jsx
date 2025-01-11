@@ -3,11 +3,13 @@ import './add.scss';
 import { Chooser, ActionButton } from '../../utils/components';
 import { url } from '../../utils/variables';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom'; // Ensure correct import
 
 const ExpenseForm = ({ labels, messageApi }) => {
   const { t } = useTranslation();
   const formTr = t('addForm.form', { returnObjects: true });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     value: '',
