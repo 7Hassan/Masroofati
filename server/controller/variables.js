@@ -1,4 +1,5 @@
 const daysData = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+
 const colorsData = [
   '#6B8E23',
   '#FF8C00',
