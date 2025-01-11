@@ -3,13 +3,10 @@ import './add.scss';
 import { Chooser, ActionButton } from '../../utils/components';
 import { url } from '../../utils/variables';
 import { useTranslation } from 'react-i18next';
-import { message } from 'antd';
-import { format } from 'date-fns';
 
-const ExpenseForm = ({ labels }) => {
+const ExpenseForm = ({ labels, messageApi }) => {
   const { t } = useTranslation();
   const formTr = t('addForm.form', { returnObjects: true });
-  const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -56,7 +53,8 @@ const ExpenseForm = ({ labels }) => {
         setLoading(false);
         if (!data.success) throw new Error(data.msg);
         const msg = formData.type == 'outcome' ? formTr.msgout : formTr.msgin;
-        messageApi.error({ content: msg, duration: 5 });
+        navigate('/');
+        messageApi.success({ content: msg, duration: 5 });
       })
       .catch((error) => {
         setLoading(false);
@@ -66,7 +64,6 @@ const ExpenseForm = ({ labels }) => {
 
   return (
     <div className="form-container">
-      {contextHolder}
       <form onSubmit={handleSubmit}>
         <div className="form-card">
           <Chooser

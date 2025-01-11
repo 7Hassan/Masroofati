@@ -16,12 +16,11 @@ exports.user = catchError(async (req, res, next) => {
 
 
 exports.createGuestAccount = catchError(async (req, res, next) => {
-  if (!req.user) {
-    const guestUser = await User.create({ isGuest: true });
-    const jwtToken = helper.createJwtToken(guestUser._id);
-    res.cookie('jwt', jwtToken, helper.cookieOptions);
-    req.user = guestUser;
-  }
+  if (req.user) next(new AppError('You are register', 401));
+  const guestUser = await User.create({ isGuest: true });
+  const jwtToken = helper.createJwtToken(guestUser._id);
+  res.cookie('jwt', jwtToken, helper.cookieOptions);
+  req.user = guestUser;
   next();
 });
 

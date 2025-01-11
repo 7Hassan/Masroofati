@@ -24,7 +24,7 @@ function App() {
     },
     {
       path: '/add',
-      element: <Add />,
+      element: <Add messageApi={messageApi} />,
     },
   ]);
 

@@ -7,12 +7,16 @@ import { message } from 'antd';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { BarChart, barLabelClasses } from '@mui/x-charts';
+import { Link } from 'react-router-dom';
 
 export const Loading = ({ type }) => {
   return (
     <>
       {type === 'white' && (
         <img src="/icons/loading.png" alt="loading" className="spine" />
+      )}
+      {type === 'color' && (
+        <img src="/icons/loading-color.png" alt="loading" className="spine" />
       )}
       {type === 'red' && (
         <img src="/icons/loading-red.png" alt="loading" className="spine" />
@@ -37,6 +41,20 @@ export const Loading = ({ type }) => {
         </>
       )}
     </>
+  );
+};
+
+export const Head = ({ head }) => {
+  return (
+    <div className="header">
+      <Link to={head.img.url}>
+        <div className="img">
+          <img src={head.img.src} alt={head.img.alt} />
+        </div>
+      </Link>
+      <h4 className="welcome">{head.dis.head}</h4>
+      <h5 className="text-light">{head.dis.dis}</h5>
+    </div>
   );
 };
 
@@ -130,7 +148,12 @@ const PieChartEle = ({ data }) => {
                 backgroundColor: item.color, // Use the color from enrichedData
               }}
             ></div>
-            <div className="label h5">{item.label} <span style={{ color:item.color  }}>({item.value} {currency})</span></div>
+            <div className="label h5">
+              {item.label}{' '}
+              <span style={{ color: item.color }}>
+                ({item.value} {currency})
+              </span>
+            </div>
           </div>
         ))}
       </div>

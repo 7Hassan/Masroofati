@@ -49,6 +49,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --header-h: 70px;
 
   --blue: #056fec;
   --main-color: #59b47f;
@@ -157,4 +158,3 @@ a {
   display: inline-block;
 
 }
-

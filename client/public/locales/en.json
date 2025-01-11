@@ -1,4 +1,21 @@
 {
+  "homeIntro": {
+    "auth": {
+      "head": {
+        "img": {
+          "src": "/icons/logo.png",
+          "alt": "logo",
+          "url": "/"
+        },
+
+        "dis": {
+          "head": "Welcome to Mosofati",
+          "dis": "Start your financial journey with us now and achieve better balance in your life!"
+        }
+      },
+      "skip": "Skip"
+    }
+  },
   "auth": {
     "signup": "Sign up",
     "login": "Log in"

@@ -3,10 +3,11 @@ import Header from '../components/header/header';
 import { useTranslation } from 'react-i18next';
 import ViewExpense from '../components/viewExpense/view';
 import AddExpense from '../components/addExpense/add';
-import { Chooser, Loading } from '../utils/components';
+import { Chooser, Head, Loading } from '../utils/components';
 import { url } from '../utils/variables';
 import { useNavigate } from 'react-router-dom';
-
+import { message } from 'antd';
+import './home.scss';
 const Auth = () => {
   const { t } = useTranslation();
   const auth = t('auth', { returnObjects: true });
@@ -76,9 +77,61 @@ const AnimatedSec = ({ data, setUserData }) => {
   );
 };
 
+const AuthIntro = ({ setUserData }) => {
+  const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
+  const homeIntro = t('homeIntro', { returnObjects: true });
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const handleSubmit = async () => {
+    if (loading) return;
+    setLoading(true);
+
+    fetch(`${url}/api/guest`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.success) throw new Error(data.msg);
+        setUserData(data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        messageApi.error({ content: error.message, duration: 5 });
+      });
+  };
+
+  return (
+    <>
+      <Header />
+      <div className="bre-intro center">
+        {contextHolder}
+        <div className="container">
+          <Head head={homeIntro.auth.head} />
+          <Auth />
+          <div className="skip row">
+            <button className="btn login-btn" onClick={() => handleSubmit()}>
+              <div className="h5">
+                {!loading && <h5>{homeIntro.auth.skip}</h5>}
+                {loading && <Loading type="color" />}
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const Home = () => {
   const { t } = useTranslation();
   const pageErr = t('pageErr', { returnObjects: true });
+  const homeIntro = t('homeIntro', { returnObjects: true });
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
 
@@ -97,10 +150,9 @@ const Home = () => {
         setLoading(false);
       })
       .catch((error) => {
-        setUserData(null);
         setLoading(false);
       });
-  }, [loading]);
+  }, []);
 
   if (loading) {
     return (
@@ -110,14 +162,18 @@ const Home = () => {
     );
   }
 
-  if (!loading && !userData) {
-    return (
-      <div className="home page-err">
-        <Header />
-        <div className="error">{pageErr}</div>
-      </div>
-    );
-  }
+  // if (!loading && !userData) {
+  //   return (
+  //     <>
+  //       <Header />
+  //       <div>
+  //         <div className="error">{pageErr}</div>
+  //       </div>
+  //     </>
+  //   );
+  // }
+
+  if (!loading && !userData) return <AuthIntro setUserData={setUserData} />;
 
   return (
     <div className="home">

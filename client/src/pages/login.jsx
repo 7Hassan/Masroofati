@@ -1,37 +1,21 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom'; // Ensure correct import
+import { useNavigate } from 'react-router-dom'; // Ensure correct import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './add.scss';
 import './signup.scss'; // Rename the CSS file if necessary
 import './login.scss'; // Rename the CSS file if necessary
-import { ActionButton } from '../utils/components';
+import { ActionButton, Head } from '../utils/components';
 import { url } from '../utils/variables';
 import { message } from 'antd';
-
-const Head = () => {
-  const { t } = useTranslation();
-  const head = t('login.head', { returnObjects: true });
-
-  return (
-    <div className="header">
-      <Link to={head.img.url}>
-        <div className="img">
-          <img src={head.img.src} alt={head.img.alt} />
-        </div>
-      </Link>
-      <h4 className="welcome">{head.dis.head}</h4>
-      <h5 className="text-light">{head.dis.dis}</h5>
-    </div>
-  );
-};
 
 const Login = ({ messageApiApp }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const formTr = t('login.form', { returnObjects: true });
+  const head = t('login.head', { returnObjects: true });
 
   const [formData, setFormData] = useState({
     phoneNumber: '',
@@ -79,7 +63,7 @@ const Login = ({ messageApiApp }) => {
   return (
     <div className="login signup add">
       {contextHolder}
-      <Head />
+      <Head head={head} />
       <div className="form-container signupForm">
         <form onSubmit={handleSubmit}>
           <div className="form-card">

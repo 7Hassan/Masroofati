@@ -1,35 +1,21 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { ActionButton } from '../utils/components';
+import { ActionButton, Head } from '../utils/components';
 import { url } from '../utils/variables';
 import { message } from 'antd';
 import './signup.scss';
 import './add.scss';
-const Head = () => {
-  const { t } = useTranslation();
-  const head = t('signup.head', { returnObjects: true });
 
-  return (
-    <div className="header">
-      <Link to={head.img.url}>
-        <div className="img">
-          <img src={head.img.src} alt={head.img.alt} />
-        </div>
-      </Link>
-      <h4 className="welcome">{head.dis.head}</h4>
-      <h5 className="text-light">{head.dis.dis}</h5>
-    </div>
-  );
-};
 
 const Signup = ({ messageApiApp }) => {
   const { t } = useTranslation();
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
   const formTr = t('signup.form', { returnObjects: true });
+  const head = t('signup.head', { returnObjects: true });
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -105,7 +91,7 @@ const Signup = ({ messageApiApp }) => {
   return (
     <div className="signup add">
       {contextHolder}
-      <Head />
+      <Head head={head} />
       <div className="form-container signupForm">
         <form onSubmit={handleSubmit}>
           {/* First Name Input */}

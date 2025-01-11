@@ -4,25 +4,11 @@ import { Link } from 'react-router-dom'; // Ensure correct import
 import ExpenseForm from '../components/addForm/add';
 import { useEffect, useState } from 'react';
 import { url } from '../utils/variables';
+import { Head } from '../utils/components';
 
-const Head = () => {
+const Add = ({ messageApi }) => {
   const { t } = useTranslation();
   const head = t('signup.head', { returnObjects: true });
-
-  return (
-    <div className="header">
-      <Link to={head.img.url}>
-        <div className="img">
-          <img src={head.img.src} alt={head.img.alt} />
-        </div>
-      </Link>
-      <h4 className="welcome">{head.dis.head}</h4>
-      <h5 className="text-light">{head.dis.dis}</h5>
-    </div>
-  );
-};
-
-const Add = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -43,8 +29,8 @@ const Add = () => {
 
   return (
     <div className="add">
-      <Head />
-      <ExpenseForm labels={user.labels || []} />
+      <Head head={head} />
+      <ExpenseForm labels={user.labels || []} messageApi={messageApi} />
     </div>
   );
 };
