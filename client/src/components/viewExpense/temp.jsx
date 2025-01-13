@@ -64,6 +64,11 @@ const Swipe = ({ data, type, text }) => {
     <Swiper pagination={true} modules={[Pagination]} className="my-swiper">
       <SwiperSlide>
         <div className="prevent-hover"></div>
+        {<SlidePie data={newOutcome} text={analytics.out} textSt={text} />}
+      </SwiperSlide>
+
+      <SwiperSlide>
+        <div className="prevent-hover"></div>
         {type == 'day' && (
           <SlidePieDay data={{ totalIncome, totalOutcome }} textSt={text} />
         )}
@@ -78,10 +83,6 @@ const Swipe = ({ data, type, text }) => {
         )}
       </SwiperSlide>
 
-      <SwiperSlide>
-        <div className="prevent-hover"></div>
-        {<SlidePie data={newOutcome} text={analytics.out} textSt={text} />}
-      </SwiperSlide>
       <SwiperSlide>
         <div className="prevent-hover"></div>
         {<SlidePie data={newIncome} text={analytics.in} textSt={text} />}

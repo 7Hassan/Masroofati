@@ -149,8 +149,8 @@ const PieChartEle = ({ data }) => {
               }}
             ></div>
             <div className="label h5">
-              {item.label}{' '}
-              <span style={{ color: item.color }}>
+              {item.label}
+              <span style={{ color: item.color, fontWeight: '600' }}>
                 ({item.value} {currency})
               </span>
             </div>
@@ -210,7 +210,9 @@ const DayTrans = ({ data, setUserData }) => {
       <div className="value text">
         {value} {currency}
       </div>
-      <div className="day text"> {format(new Date(date), 'dd/MM/yyyy')}</div>
+      <div className="day text">
+        {format(new Date(date), 'eee')}, {format(new Date(date), 'dd/MM')}
+      </div>
       <div className="label text">{label}</div>
       {loading && (
         <div className="label text delete" onClick={handleDelete}>
@@ -220,7 +222,7 @@ const DayTrans = ({ data, setUserData }) => {
 
       {!loading && (
         <div className="label text delete" onClick={handleDelete}>
-          <img src="/icons/remove.png" alt="" />
+          <img src="/icons/remove.png" alt="img" />
         </div>
       )}
     </div>
