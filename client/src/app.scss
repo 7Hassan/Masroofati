@@ -428,15 +428,7 @@ span.high-light {
 }
 
 .slide {
-  height: 100%;
-  width: 100%;
-
   .char-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
 
     .bar-chart> :first-child {
       width: 100% !important;
