@@ -437,16 +437,18 @@ span.high-light {
     justify-content: center;
     height: 100%;
     width: 100%;
+
+    .bar-chart> :first-child {
+
+      height: unset !important;
+      width: 100% !important;
+    }
+
+    .pie-chart> :first-child {
+
+      height: auto !important;
+      width: 100% !important;
+      max-width: 350px;
+    }
   }
-}
-
-.css-10vg0a6-MuiResponsiveChart-container {
-  height: unset !important;
-  width: 100% !important;
-}
-
-.css-1v603wu-MuiResponsiveChart-container {
-  height: auto !important;
-  width: 100% !important;
-  max-width: 350px;
 }
