@@ -69,6 +69,11 @@ const Swipe = ({ data, type, text }) => {
 
       <SwiperSlide>
         <div className="prevent-hover"></div>
+        {<SlidePie data={newIncome} text={analytics.in} textSt={text} />}
+      </SwiperSlide>
+      
+      <SwiperSlide>
+        <div className="prevent-hover"></div>
         {type == 'day' && (
           <SlidePieDay data={{ totalIncome, totalOutcome }} textSt={text} />
         )}
@@ -81,11 +86,6 @@ const Swipe = ({ data, type, text }) => {
             textSt={text}
           />
         )}
-      </SwiperSlide>
-
-      <SwiperSlide>
-        <div className="prevent-hover"></div>
-        {<SlidePie data={newIncome} text={analytics.in} textSt={text} />}
       </SwiperSlide>
     </Swiper>
   );

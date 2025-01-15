@@ -7,21 +7,20 @@
           "alt": "logo",
           "url": "/"
         },
-
         "dis": {
           "head": "Welcome to Mosofati",
-          "dis": "Start your financial journey with us now and achieve better balance in your life!"
+          "dis": "Begin your financial journey with us and achieve a balanced lifestyle!"
         }
       },
       "skip": "Skip"
     }
   },
   "auth": {
-    "signup": "Sign up",
-    "login": "Log in"
+    "signup": "Sign Up",
+    "login": "Log In"
   },
-  "currency": "EG",
-  "pageErr": "Oops, couldn’t fetch the data. Try again later!",
+  "currency": "EGP",
+  "pageErr": "Oops, something went wrong. Please try again later!",
   "header": {
     "logo": {
       "img": {
@@ -29,8 +28,8 @@
         "alt": "logo"
       },
       "textLogo": {
-        "src": "/icons/text-logo-ar.png",
-        "alt": "logo"
+        "src": "/icons/text-logo-en.png",
+        "alt": "text logo"
       }
     }
   },
@@ -42,6 +41,10 @@
     {
       "name": "View Details",
       "code": "view"
+    },
+    {
+      "name": "Analytics",
+      "code": "analytics"
     }
   ],
   "add": {
@@ -50,39 +53,39 @@
       "outcome": "Expenses"
     },
     "week": {
-      "text": "Week",
+      "text": "This Week",
       "income": "Income",
       "outcome": "Expenses"
     },
     "day": {
-      "text": "Day",
+      "text": "Today",
       "income": "Income",
       "outcome": "Expenses"
     },
-    "btn": "Add New Expense!"
+    "btn": "Add New Entry"
   },
   "view": {
     "chooser": [
       {
         "code": "day",
-        "name": "Day"
+        "name": "Daily"
       },
       {
         "code": "week",
-        "name": "Week"
+        "name": "Weekly"
       },
       {
         "code": "month",
-        "name": "Month"
+        "name": "Monthly"
       },
       {
         "code": "year",
-        "name": "Year"
+        "name": "Yearly"
       }
     ],
     "analytics": {
       "text": {
-        "inOut": "Income - Expenses",
+        "inOut": "Income vs Expenses",
         "in": "Income",
         "out": "Expenses"
       }
@@ -112,26 +115,26 @@
         "alt": "logo",
         "url": "/"
       },
-
       "dis": {
-        "head": "Quick & Easy Additions!",
-        "dis": "Everything you need to manage your finances is right here."
+        "head": "Add New Record Easily!",
+        "dis": "Organize your finances with ease and clarity."
       }
     },
     "form": {
-      "msgin": "Yeah, that's it! Add more money 😂💸",
-      "msgout": "This spending needs some brakes! 🥺",
+      "msgin": "Great! You're adding more funds 💸",
+      "msgout": "Watch out! You're spending too much 🥺",
+      "success": "Success! Your entry has been added.",
       "valueIn": {
         "label": "Amount",
-        "pl": "Enter the amount here",
-        "err": "Value must be a positive number greater than zero."
+        "pl": "Enter the amount",
+        "err": "Please provide a valid positive number."
       },
       "sourceIn": {
         "label": "Source/Destination",
-        "pl": "e.g., Salary or Rent",
-        "err": "You must enter a label."
+        "pl": "e.g., Salary, Rent",
+        "err": "This field cannot be empty."
       },
-      "day": "Day",
+      "day": "Date",
       "types": [
         {
           "name": "Expense",
@@ -142,7 +145,7 @@
           "code": "income"
         }
       ],
-      "btn": "Add Details"
+      "btn": "Add Entry"
     }
   },
   "signup": {
@@ -152,14 +155,13 @@
         "alt": "logo",
         "url": "/"
       },
-
       "dis": {
-        "head": "Join Us Now!",
-        "dis": "A small step can make a big change in your financial life!"
+        "head": "Create Your Account Now!",
+        "dis": "Take the first step to financial freedom!"
       }
     },
     "form": {
-      "msgSignup": "Got money? Come on in straight away 😂💸",
+      "msgSignup": "Ready to manage your money? Let’s go! 💸",
       "firstName": {
         "label": "First Name",
         "pl": "Enter your first name"
@@ -170,15 +172,15 @@
       },
       "phoneNumber": {
         "label": "Phone Number",
-        "pl": "e.g., 01027045254",
+        "pl": "e.g., 0123456789",
         "err": "Phone number must contain only digits."
       },
       "password": {
         "label": "Password",
         "pl": "Choose a strong password",
-        "err": "Password must be longer than 8 characters."
+        "err": "Password must be at least 8 characters."
       },
-      "btn": "Sign Up Now!"
+      "btn": "Sign Up"
     }
   },
   "login": {
@@ -188,24 +190,23 @@
         "alt": "logo",
         "url": "/"
       },
-
       "dis": {
         "head": "Welcome Back!",
-        "dis": "Let’s sign in quickly and get back to it."
+        "dis": "Let’s get you signed in quickly."
       }
     },
     "form": {
-      "msgLogin": "Hop in and check your cash, mate! 💸😂",
+      "msgLogin": "Check your balance now! 💸",
       "phoneNumber": {
         "label": "Phone Number",
         "pl": "Enter your phone number",
-        "err": "Phone number must contain only digits."
+        "err": "This field must contain digits only."
       },
       "password": {
         "label": "Password",
         "pl": "Enter your password"
       },
-      "btn": "Log In!"
+      "btn": "Log In"
     }
   }
 }

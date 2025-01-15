@@ -6,13 +6,15 @@ import './add.scss';
 const DayBudget = ({ income, outcome }) => {
   const { t } = useTranslation();
   const currency = t('currency');
-  const month = t('add.day', { returnObjects: true });
+  const day = t('add.day', { returnObjects: true });
 
   return (
     <div className="month-budget row">
       <div className="outcome  budget-box">
         <div className="text row">
-          <div className="h5">{month.outcome}</div>
+          <div className="h5">
+            {day.outcome} <span className="high-light">{day.highlight}</span>
+          </div>
         </div>
         <div className="text row">
           <OutcomeIcon />
@@ -23,7 +25,9 @@ const DayBudget = ({ income, outcome }) => {
       </div>
       <div className="income budget-box">
         <div className="text row">
-          <div className="h5">{month.income}</div>
+          <div className="h5">
+            {day.income} <span className="high-light">{day.highlight}</span>
+          </div>
         </div>
         <div className="text row">
           <IncomeIcon />
@@ -41,7 +45,9 @@ const WeekMonBudget = ({ text, income, outcome }) => {
   const currency = t('currency');
   return (
     <div className="week-day-budget">
-      <div className="name h5">{text}</div>
+      <div className="name h5">
+        {text.text} <span className="high-light">{text.highlight}</span>
+      </div>
       <div className="row">
         <div className="text row">
           <OutcomeIcon />
@@ -68,12 +74,12 @@ const AddExpense = ({ data }) => {
     <div className="add-expensed">
       <DayBudget income={data.dayIncome} outcome={data.dayOutcome} />
       <WeekMonBudget
-        text={add.week.text}
+        text={add.week}
         income={data.weekIncome}
         outcome={data.weekOutcome}
       />
       <WeekMonBudget
-        text={add.month.text}
+        text={add.month}
         income={data.monthIncome}
         outcome={data.monthOutcome}
       />

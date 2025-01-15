@@ -6,37 +6,38 @@ import { url } from './variables';
 import { message } from 'antd';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
-import { BarChart, barLabelClasses } from '@mui/x-charts';
+import { BarChart } from '@mui/x-charts';
 import { Link } from 'react-router-dom';
+import loading from '/icons/loading.png';
+import loadingColor from '/icons/loading-color.png';
+import loadingRed from '/icons/loading-red.png';
+import loadingLogo from '/icons/loading-logo.png';
+import logo from '/icons/logo.png';
 
 export const Loading = ({ type }) => {
   return (
     <>
       {type === 'white' && (
-        <img src="/icons/loading.png" alt="loading" className="spine" />
+        <img src={loading} alt="loading" className="spine" />
       )}
       {type === 'color' && (
-        <img src="/icons/loading-color.png" alt="loading" className="spine" />
+        <img src={loadingColor} alt="loading" className="spine" />
       )}
       {type === 'red' && (
-        <img src="/icons/loading-red.png" alt="loading" className="spine" />
+        <img src={loadingRed} alt="loading" className="spine" />
       )}
       {type === 'page' && (
         <>
           <div className="loading loading-img">
             <img
-              src="/icons/loading-logo.png"
+              src={loadingLogo}
               alt="loading"
               className="spine loading-page-img"
             />
           </div>
 
           <div className="loading">
-            <img
-              src="/icons/logo.png"
-              alt="image"
-              className="loading-page-img"
-            />
+            <img src={logo} alt="image" className="loading-page-img" />
           </div>
         </>
       )}
@@ -96,11 +97,36 @@ export const Chooser = ({ setItem, activeItem, list, classes }) => {
   );
 };
 
-const PieChartEle = ({ data }) => {
-  const TOTAL = data.map((item) => item.value).reduce((a, b) => a + b, 0);
+const TextLabels = ({ data }) => {
   const { t } = useTranslation();
   const currency = t('currency', { returnObjects: true });
 
+  return (
+    <div className="text-labels row wrap">
+      {data.map((item) => (
+        <div className="item row" key={item._id}>
+          <div
+            className="color"
+            style={{
+              backgroundColor: item.color, // Use the color from enrichedData
+            }}
+          ></div>
+          <div className="label h5">
+            {item.label}
+            {item.value && (
+              <span style={{ color: item.color, fontWeight: '600' }}>
+                ({item.value} {currency})
+              </span>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const PieChartEle = ({ data }) => {
+  const TOTAL = data.map((item) => item.value).reduce((a, b) => a + b, 0);
   const sizing = {
     margin: {
       left: 100,
@@ -139,24 +165,7 @@ const PieChartEle = ({ data }) => {
         }}
         {...sizing}
       />
-      <div className="text row wrap">
-        {data.map((item) => (
-          <div className="item row" key={item._id}>
-            <div
-              className="color"
-              style={{
-                backgroundColor: item.color, // Use the color from enrichedData
-              }}
-            ></div>
-            <div className="label h5">
-              {item.label}
-              <span style={{ color: item.color, fontWeight: '600' }}>
-                ({item.value} {currency})
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+      <TextLabels data={data} />
     </div>
   );
 };
@@ -165,10 +174,11 @@ export const SlidePie = ({ data, text, textSt }) => {
   return (
     <div className="slide">
       <h4 className="title">
-        {' '}
-        {text} <span className="text-color">{textSt}</span>
+        {text} <span className="high-light">{textSt}</span>
       </h4>
-      <PieChartEle data={data} />
+      <div className="char-container">
+        <PieChartEle data={data} />
+      </div>
     </div>
   );
 };
@@ -272,7 +282,7 @@ export const Transports = ({
   return (
     <div className="transported">
       <h4 className="title">
-        {trans.text} <span className="text-color">{text}</span>
+        {trans.text} <span className="high-light">{text}</span>
       </h4>
       <Chooser
         setItem={handleSectionChange}
@@ -316,12 +326,29 @@ const ChartLine = ({ data }) => {
 };
 
 export const SlideLine = ({ data, text, textSt }) => {
+  const { t } = useTranslation();
+  const analytics = t('view.analytics.text', { returnObjects: true });
+
+  const textLabels = [
+    {
+      label: analytics.out,
+      color: '#E42F4C',
+    },
+    {
+      label: analytics.in,
+      color: '#2ECC71',
+    },
+  ];
+  console.log('🚀 ~ data:', data);
   return (
     <div className="slide">
       <h4 className="title">
-        {text} <span className="text-color">{textSt}</span>
+        {text} <span className="high-light">{textSt}</span>
       </h4>
-      <ChartLine data={data} />
+      <div className="char-container">
+        <ChartLine data={data} />
+        <TextLabels data={textLabels} />
+      </div>
     </div>
   );
 };

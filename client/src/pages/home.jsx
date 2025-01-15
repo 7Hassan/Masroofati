@@ -129,11 +129,11 @@ const AuthIntro = ({ setUserData }) => {
 };
 
 const Home = () => {
-  const { t } = useTranslation();
-  const pageErr = t('pageErr', { returnObjects: true });
-  const homeIntro = t('homeIntro', { returnObjects: true });
+  // const { t } = useTranslation();
+  // const pageErr = t('pageErr', { returnObjects: true });
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+  console.log('🚀 ~ userData:', userData)
 
   useEffect(() => {
     fetch(`${url}/api/data`, {
@@ -177,7 +177,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <Header />
+      <Header isGuest={userData.isGuest} setUserData={setUserData} />
       <AnimatedSec data={userData} setUserData={setUserData} />
     </div>
   );

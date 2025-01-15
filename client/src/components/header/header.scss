@@ -1,6 +1,16 @@
 header {
   padding: 15px 0;
 
+  .text-logo {
+    $textLogo: 100px;
+    width: $textLogo;
+    border-radius: unset;
+    margin-top: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .header-buttons {
     display: flex;
     gap: 1rem;
@@ -48,30 +58,30 @@ header {
       gap: 0px;
     }
 
-    .lang {
+    .lang,
+    .logout {
       height: $imgWidth;
       width: $imgWidth;
       padding: 0;
       justify-content: center;
+      border: 1px solid var(--blue);
+      color: var(--blue);
     }
 
-    img {
-      width: $imgWidth;
+    .logout {
+      color: red;
+      font-size: 16px;
+      border-color: red;
+
+      img {
+        width: 17px;
+      }
     }
 
     .logos {
       img {
+        width: $imgWidth;
         border-radius: 50%;
-
-        &.text-logo {
-          $textLogo: $logoImg+60px;
-          width: $textLogo;
-          border-radius: unset;
-          margin-top: 5px;
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-        }
       }
     }
   }

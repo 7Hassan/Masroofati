@@ -172,15 +172,14 @@ exports.add = catchError(async (req, res, next) => {
 
 
 
+
+
+
+
+
 exports.logOut = catchError(async (req, res, next) => {
-  const user = req.user
-  if (!user) return next(new AppError('You aren\'t register', 401))
+  const user = req.user;
+  if (user.isGuest) return next(new AppError('You aren\'t register', 401))
   res.cookie('jwt', 'out', helper.cookieOptions).status(201)
-    .json({ susses: true, msg: "Log out" })
+    .json({ success: true, msg: "Log out" })
 })
-
-
-
-
-
-
