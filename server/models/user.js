@@ -1,7 +1,6 @@
 /* eslint-disable func-names */
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
 const { colorsData, daysData } = require('../controller/variables');
 
 const getRandomColor = () => colorsData[Math.floor(Math.random() * colorsData.length)];

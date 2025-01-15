@@ -18,6 +18,8 @@ exports.signUp = catchError(async (req, res, next) => {
     phoneNumber: req.body.phoneNumber,
     password: req.body.password,
   }
+  const user = await User.findOne({ phoneNumber: data.phoneNumber }).select('+password')
+  if (user) return next(new AppError('Phone number is used', 401))
   const newUser = await User.create(data)
   const jwtToken = helper.createJwtToken(newUser._id)
   res.cookie('jwt', jwtToken, helper.cookieOptions).status(200).json({ success: true })

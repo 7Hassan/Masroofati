@@ -210,7 +210,7 @@ img.icon-st {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 
@@ -434,7 +434,7 @@ span.high-light {
   .char-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     height: 100%;
     width: 100%;
 
@@ -442,11 +442,12 @@ span.high-light {
       width: 100% !important;
     }
 
+
     .pie-chart> :first-child {
 
       height: auto !important;
       width: 100% !important;
-      max-width: 300px;
+      max-width: 250px;
     }
   }
 }
